@@ -1149,10 +1149,10 @@ $sectors_add->ShowMessage();
 <?php } ?>
 <?php if ($sectors->sector_details->Visible) { // sector_details ?>
 	<div id="r_sector_details" class="form-group">
-		<label id="elh_sectors_sector_details" for="x_sector_details" class="col-sm-2 control-label ewLabel"><?php echo $sectors->sector_details->FldCaption() ?><?php echo $Language->Phrase("FieldRequiredIndicator") ?></label>
+		<label id="elh_sectors_sector_details" for="x_details" class="col-sm-2 control-label ewLabel"><?php echo $sectors->sector_details->FldCaption() ?><?php echo $Language->Phrase("FieldRequiredIndicator") ?></label>
 		<div class="col-sm-10"><div<?php echo $sectors->sector_details->CellAttributes() ?>>
 <span id="el_sectors_sector_details">
-<textarea data-table="sectors" data-field="x_sector_details" name="x_sector_details" id="x_sector_details" cols="75" rows="4" placeholder="<?php echo ew_HtmlEncode($sectors->sector_details->getPlaceHolder()) ?>"<?php echo $sectors->sector_details->EditAttributes() ?>><?php echo $sectors->sector_details->EditValue ?></textarea>
+<textarea data-table="sectors" data-field="x_sector_details" name="x_sector_details" id="x_details" cols="75" rows="4" placeholder="<?php echo ew_HtmlEncode($sectors->sector_details->getPlaceHolder()) ?>"<?php echo $sectors->sector_details->EditAttributes() ?>><?php echo $sectors->sector_details->EditValue ?></textarea>
 </span>
 <?php echo $sectors->sector_details->CustomMsg ?></div></div>
 	</div>

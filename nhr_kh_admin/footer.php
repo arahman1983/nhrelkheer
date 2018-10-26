@@ -24,10 +24,12 @@
 <!-- tooltip -->
 <div id="ewTooltip"></div>
 <script type="text/javascript" src="<?php echo $EW_RELATIVE_PATH ?>phpjs/userevt12.js"></script>
+
 <script type="text/javascript">
 
 // Write your global startup script here
 // document.write("page loaded");
+CKEDITOR.replace('x_details');
 
 </script>
 </body>

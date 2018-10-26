@@ -1142,10 +1142,10 @@ $offers_edit->ShowMessage();
 <?php } ?>
 <?php if ($offers->offers_details->Visible) { // offers_details ?>
 	<div id="r_offers_details" class="form-group">
-		<label id="elh_offers_offers_details" for="x_offers_details" class="col-sm-2 control-label ewLabel"><?php echo $offers->offers_details->FldCaption() ?><?php echo $Language->Phrase("FieldRequiredIndicator") ?></label>
+		<label id="elh_offers_offers_details" for="x_details" class="col-sm-2 control-label ewLabel"><?php echo $offers->offers_details->FldCaption() ?><?php echo $Language->Phrase("FieldRequiredIndicator") ?></label>
 		<div class="col-sm-10"><div<?php echo $offers->offers_details->CellAttributes() ?>>
 <span id="el_offers_offers_details">
-<textarea data-table="offers" data-field="x_offers_details" name="x_offers_details" id="x_offers_details" cols="75" rows="4" placeholder="<?php echo ew_HtmlEncode($offers->offers_details->getPlaceHolder()) ?>"<?php echo $offers->offers_details->EditAttributes() ?>><?php echo $offers->offers_details->EditValue ?></textarea>
+<textarea data-table="offers" data-field="x_offers_details" name="x_offers_details" id="x_details" cols="75" rows="4" placeholder="<?php echo ew_HtmlEncode($offers->offers_details->getPlaceHolder()) ?>"<?php echo $offers->offers_details->EditAttributes() ?>><?php echo $offers->offers_details->EditValue ?></textarea>
 </span>
 <?php echo $offers->offers_details->CustomMsg ?></div></div>
 	</div>
@@ -1180,7 +1180,7 @@ $offers_edit->ShowMessage();
 		<label id="elh_offers_project" for="x_project" class="col-sm-2 control-label ewLabel"><?php echo $offers->project->FldCaption() ?><?php echo $Language->Phrase("FieldRequiredIndicator") ?></label>
 		<div class="col-sm-10"><div<?php echo $offers->project->CellAttributes() ?>>
 <span id="el_offers_project">
-<select data-table="offers" data-field="x_project" data-value-separator="<?php echo ew_HtmlEncode(is_array($offers->project->DisplayValueSeparator) ? json_encode($offers->project->DisplayValueSeparator) : $offers->project->DisplayValueSeparator) ?>" id="x_project" name="x_project" size=75<?php echo $offers->project->EditAttributes() ?>>
+<select data-table="offers" data-field="x_project" data-value-separator="<?php echo ew_HtmlEncode(is_array($offers->project->DisplayValueSeparator) ? json_encode($offers->project->DisplayValueSeparator) : $offers->project->DisplayValueSeparator) ?>" id="x_project" name="x_project" <?php echo $offers->project->EditAttributes() ?>>
 <?php
 if (is_array($offers->project->EditValue)) {
 	$arwrk = $offers->project->EditValue;

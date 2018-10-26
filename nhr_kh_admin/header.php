@@ -99,6 +99,7 @@ var ewVar = <?php echo json_encode($EW_CLIENT_VAR); ?>;
 </script>
 <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="<?php echo ew_ConvertFullUrl("favicon.ico") ?>"><link rel="icon" type="image/vnd.microsoft.icon" href="<?php echo ew_ConvertFullUrl("favicon.ico") ?>">
 <meta name="generator" content="PHPMaker v12.0.2">
+<script src="//cdn.ckeditor.com/4.10.0/full/ckeditor.js"></script>
 </head>
 <body>
 <?php if (@!$gbSkipHeaderFooter) { ?>

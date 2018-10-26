@@ -1076,10 +1076,10 @@ $projects_edit->ShowMessage();
 <?php } ?>
 <?php if ($projects->project_details->Visible) { // project_details ?>
 	<div id="r_project_details" class="form-group">
-		<label id="elh_projects_project_details" for="x_project_details" class="col-sm-2 control-label ewLabel"><?php echo $projects->project_details->FldCaption() ?><?php echo $Language->Phrase("FieldRequiredIndicator") ?></label>
+		<label id="elh_projects_project_details" for="x_details" class="col-sm-2 control-label ewLabel"><?php echo $projects->project_details->FldCaption() ?><?php echo $Language->Phrase("FieldRequiredIndicator") ?></label>
 		<div class="col-sm-10"><div<?php echo $projects->project_details->CellAttributes() ?>>
 <span id="el_projects_project_details">
-<textarea data-table="projects" data-field="x_project_details" name="x_project_details" id="x_project_details" cols="75" rows="4" placeholder="<?php echo ew_HtmlEncode($projects->project_details->getPlaceHolder()) ?>"<?php echo $projects->project_details->EditAttributes() ?>><?php echo $projects->project_details->EditValue ?></textarea>
+<textarea data-table="projects" data-field="x_project_details" name="x_project_details" id="x_details" cols="75" rows="4" placeholder="<?php echo ew_HtmlEncode($projects->project_details->getPlaceHolder()) ?>"<?php echo $projects->project_details->EditAttributes() ?>><?php echo $projects->project_details->EditValue ?></textarea>
 </span>
 <?php echo $projects->project_details->CustomMsg ?></div></div>
 	</div>
