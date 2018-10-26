@@ -19,7 +19,7 @@ include_once('header.php');
                 <?php
                 $branches_sql = "SELECT * FROM `branches` ORDER BY `id` ASC";
                 $branches_result = $conn->query($branches_sql);
-                while($branches_row = $branches_result->fetch_assoc()){
+                while(@$branches_row = $branches_result->fetch_assoc()){
                     echo '
                     <div class="row my-3">
                     <div class="col-md-8">
@@ -27,16 +27,16 @@ include_once('header.php');
                     <i class="fas fa-map-marker-alt"></i> <span>'.$branches_row['address'].' </span><br>
                     <p class="new-dir">'
                     ;    
-                        $contact_sql = "SELECT * FROM `phones` WHERE `branch` LIKE '%".$branches_row['branch_name']."%'";
+                        $contact_sql = "SELECT * FROM `phones` WHERE `branch` LIKE '%".$branches_row['branch_name']."%' ORDER BY `id` DESC";
                         $contact_result = $conn->query($contact_sql);
-                        while($contact_row = $contact_result->fetch_assoc){
+                        while($contact_row = $contact_result->fetch_assoc()){
                         echo'
                         <a href="tel:'.$contact_row['phone_no'].'"> '.$contact_row['phone_no'].' '.$contact_row['phone_type'].'></i></a><br>
                         ';
                         }
                         $email_sql = "SELECT * FROM `co_emails` WHERE `branch` LIKE '%".$branches_row['branch_name']."%'";
                         $email_result = $conn->query($email_sql);
-                        while($email_row = $email_result->fetch_assoc){
+                        while($email_row = $email_result->fetch_assoc()){
                         echo'
                         <a href="mailto:'.$email_row['email'].'">'.$email_row['email'].' <i class="fas fa-at"></i></a><br>
                         ';

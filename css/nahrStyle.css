@@ -155,9 +155,20 @@ h1,h2,h3,h4,h5{
     border-radius: 20px;
     margin-right:0.8rem; 
 }
+.fa-linkedin-in{
+    background:#4875B4
+}
+.fa-pinterest-p{
+    background: #c8232c ;
+}
+.fa-snapchat-ghost {
+    background: #fefc00 
+}
+
 .fa-facebook-f{
     background:#3B5998
 }
+
 .fa-twitter{
     background:#1DA1F2
 }

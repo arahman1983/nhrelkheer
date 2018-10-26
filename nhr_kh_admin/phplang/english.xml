@@ -436,222 +436,222 @@
 		<phrase id="or" value="or"/>
 	</global>
 	<project><phrase id="bodytitle" value="شركة نهر الخير ::: لوحة التحكم"/>
-<phrase id="footertext" value="&amp;copy;2018 e.World Technology Ltd. All rights reserved."/>
-<menu id="1"><phrase id="menutext" value="about"/>
+<phrase id="footertext" value="&amp;copy;2018 AR.Design Developing All rights reserved."/>
+<menu id="1"><phrase id="menutext" value="عن الشركة"/>
 </menu>
-<menu id="2"><phrase id="menutext" value="admin users"/>
+<menu id="2"><phrase id="menutext" value="مستخدمي لوحة التحكم"/>
 </menu>
-<menu id="3"><phrase id="menutext" value="blog"/>
+<menu id="3"><phrase id="menutext" value="معلومة زراعية"/>
 </menu>
-<menu id="4"><phrase id="menutext" value="branches"/>
+<menu id="4"><phrase id="menutext" value="مقرات الشركة"/>
 </menu>
-<menu id="5"><phrase id="menutext" value="co emails"/>
+<menu id="5"><phrase id="menutext" value="إيميلات الشركة"/>
 </menu>
-<menu id="6"><phrase id="menutext" value="email list"/>
+<menu id="6"><phrase id="menutext" value="القائمة البريدية"/>
 </menu>
-<menu id="7"><phrase id="menutext" value="news"/>
+<menu id="7"><phrase id="menutext" value="الأخبار"/>
 </menu>
-<menu id="8"><phrase id="menutext" value="offers"/>
+<menu id="8"><phrase id="menutext" value="العروض"/>
 </menu>
-<menu id="9"><phrase id="menutext" value="phones"/>
+<menu id="9"><phrase id="menutext" value="تليفونات الشركة"/>
 </menu>
-<menu id="10"><phrase id="menutext" value="photo albums"/>
+<menu id="10"><phrase id="menutext" value="ألبومات الصور"/>
 </menu>
-<menu id="11"><phrase id="menutext" value="photos"/>
+<menu id="11"><phrase id="menutext" value="الصور"/>
 </menu>
-<menu id="12"><phrase id="menutext" value="projects"/>
+<menu id="12"><phrase id="menutext" value="المشروعات"/>
 </menu>
-<menu id="13"><phrase id="menutext" value="sectors"/>
+<menu id="13"><phrase id="menutext" value="قطاعات الشركة"/>
 </menu>
-<menu id="14"><phrase id="menutext" value="slide"/>
+<menu id="14"><phrase id="menutext" value="معرض الصور الرئيسي"/>
 </menu>
-<menu id="15"><phrase id="menutext" value="social"/>
+<menu id="15"><phrase id="menutext" value="مواقع التواصل الاجتماعي"/>
 </menu>
-<menu id="16"><phrase id="menutext" value="study"/>
+<menu id="16"><phrase id="menutext" value="دراسات الجدوى"/>
 </menu>
-<menu id="17"><phrase id="menutext" value="top adv"/>
+<menu id="17"><phrase id="menutext" value="الاعلان أعلى الصفحة"/>
 </menu>
-<menu id="18"><phrase id="menutext" value="videos library"/>
+<menu id="18"><phrase id="menutext" value="مكتبة الفيديو"/>
 </menu>
-<table id="about"><phrase id="tblcaption" value="about"/>
-<field id="id"><phrase id="fldcaption" value="id"/>
+<table id="about"><phrase id="tblcaption" value="عن الشركة"/>
+<field id="id"><phrase id="fldcaption" value="م"/>
 </field>
-<field id="title"><phrase id="fldcaption" value="title"/>
+<field id="title"><phrase id="fldcaption" value="العنوان"/>
 </field>
-<field id="breif"><phrase id="fldcaption" value="breif"/>
+<field id="breif"><phrase id="fldcaption" value="وصف مختصر"/>
 </field>
-<field id="details"><phrase id="fldcaption" value="details"/>
+<field id="details"><phrase id="fldcaption" value="التفاصيل"/>
 </field>
-<field id="pic"><phrase id="fldcaption" value="pic"/>
+<field id="pic"><phrase id="fldcaption" value="الصورة الرئيسية"/>
 </field>
-<field id="key_wrds"><phrase id="fldcaption" value="key wrds"/>
+<field id="key_wrds"><phrase id="fldcaption" value="كلمات البحث"/>
 </field>
 </table>
-<table id="admin_users"><phrase id="tblcaption" value="admin users"/>
-<field id="id"><phrase id="fldcaption" value="id"/>
+<table id="admin_users"><phrase id="tblcaption" value="مستخدمي لوحة التحكم"/>
+<field id="id"><phrase id="fldcaption" value="م"/>
 </field>
-<field id="username"><phrase id="fldcaption" value="user Name"/>
+<field id="username"><phrase id="fldcaption" value="اسم المستخدم"/>
 </field>
-<field id="password"><phrase id="fldcaption" value="password"/>
+<field id="password"><phrase id="fldcaption" value="كلمة المرور"/>
 </field>
-<field id="userlevel"><phrase id="fldcaption" value="user Level"/>
+<field id="userlevel"><phrase id="fldcaption" value="مستوى التأمين"/>
 <phrase id="fldtagvalue1" value="-1"/>
-<phrase id="fldtagcaption1" value="Administrator"/>
+<phrase id="fldtagcaption1" value="مدير الموقع"/>
 <phrase id="fldtagvalue2" value="0"/>
-<phrase id="fldtagcaption2" value="Content Editor"/>
+<phrase id="fldtagcaption2" value="مدير محتوى"/>
 </field>
 </table>
 <table id="blog"><phrase id="tblcaption" value="blog"/>
-<field id="id"><phrase id="fldcaption" value="id"/>
+<field id="id"><phrase id="fldcaption" value="م"/>
 </field>
-<field id="title"><phrase id="fldcaption" value="title"/>
+<field id="title"><phrase id="fldcaption" value="العنوان"/>
 </field>
-<field id="breif"><phrase id="fldcaption" value="breif"/>
+<field id="breif"><phrase id="fldcaption" value="وصف مختصر"/>
 </field>
-<field id="details"><phrase id="fldcaption" value="details"/>
+<field id="details"><phrase id="fldcaption" value="التفاصيل"/>
 </field>
-<field id="pic"><phrase id="fldcaption" value="pic"/>
+<field id="pic"><phrase id="fldcaption" value="الصورة الرئيسية"/>
 </field>
-<field id="key_wrds"><phrase id="fldcaption" value="key wrds"/>
-</field>
-</table>
-<table id="branches"><phrase id="tblcaption" value="branches"/>
-<field id="id"><phrase id="fldcaption" value="id"/>
-</field>
-<field id="branch_name"><phrase id="fldcaption" value="branch name"/>
-</field>
-<field id="map_code"><phrase id="fldcaption" value="map code"/>
-</field>
-<field id="address"><phrase id="fldcaption" value="address"/>
+<field id="key_wrds"><phrase id="fldcaption" value="كلمات البحث"/>
 </field>
 </table>
-<table id="co_emails"><phrase id="tblcaption" value="co emails"/>
-<field id="id"><phrase id="fldcaption" value="id"/>
+<table id="branches"><phrase id="tblcaption" value="مقرات الشركة"/>
+<field id="id"><phrase id="fldcaption" value="م"/>
 </field>
-<field id="_email"><phrase id="fldcaption" value="email"/>
+<field id="branch_name"><phrase id="fldcaption" value="اسم المقر"/>
 </field>
-<field id="branch"><phrase id="fldcaption" value="branch"/>
+<field id="map_code"><phrase id="fldcaption" value="كود الخريطة"/>
 </field>
-</table>
-<table id="email_list"><phrase id="tblcaption" value="email list"/>
-<field id="id"><phrase id="fldcaption" value="id"/>
-</field>
-<field id="_email"><phrase id="fldcaption" value="email"/>
-</field>
-<field id="phone"><phrase id="fldcaption" value="phone"/>
-</field>
-<field id="whatsapp"><phrase id="fldcaption" value="whatsapp"/>
+<field id="address"><phrase id="fldcaption" value="عنوان المقر"/>
 </field>
 </table>
-<table id="news"><phrase id="tblcaption" value="news"/>
-<field id="id"><phrase id="fldcaption" value="id"/>
+<table id="co_emails"><phrase id="tblcaption" value="بريد الشركة"/>
+<field id="id"><phrase id="fldcaption" value="م"/>
 </field>
-<field id="title"><phrase id="fldcaption" value="title"/>
+<field id="_email"><phrase id="fldcaption" value="البريد"/>
 </field>
-<field id="brief"><phrase id="fldcaption" value="brief"/>
-</field>
-<field id="details"><phrase id="fldcaption" value="details"/>
-</field>
-<field id="pic"><phrase id="fldcaption" value="pic"/>
-</field>
-<field id="key_wrds"><phrase id="fldcaption" value="key wrds"/>
+<field id="branch"><phrase id="fldcaption" value="المقر"/>
 </field>
 </table>
-<table id="offers"><phrase id="tblcaption" value="offers"/>
-<field id="id"><phrase id="fldcaption" value="id"/>
+<table id="email_list"><phrase id="tblcaption" value="القائمة البريدية"/>
+<field id="id"><phrase id="fldcaption" value="م"/>
 </field>
-<field id="offers_title"><phrase id="fldcaption" value="offers title"/>
+<field id="_email"><phrase id="fldcaption" value="البريد الالكتروني"/>
 </field>
-<field id="offers_brief"><phrase id="fldcaption" value="offers brief"/>
+<field id="phone"><phrase id="fldcaption" value="التليفون"/>
 </field>
-<field id="offers_details"><phrase id="fldcaption" value="offers details"/>
-</field>
-<field id="offers_pic"><phrase id="fldcaption" value="offers pic"/>
-</field>
-<field id="project"><phrase id="fldcaption" value="project"/>
-</field>
-<field id="offers_keywrds"><phrase id="fldcaption" value="offers keywrds"/>
+<field id="whatsapp"><phrase id="fldcaption" value="واتس أب"/>
 </field>
 </table>
-<table id="phones"><phrase id="tblcaption" value="phones"/>
-<field id="id"><phrase id="fldcaption" value="id"/>
+<table id="news"><phrase id="tblcaption" value="الأخبار"/>
+<field id="id"><phrase id="fldcaption" value="م"/>
 </field>
-<field id="phone_type"><phrase id="fldcaption" value="phone type"/>
+<field id="title"><phrase id="fldcaption" value="العنوان"/>
+</field>
+<field id="brief"><phrase id="fldcaption" value="وصف مختصر"/>
+</field>
+<field id="details"><phrase id="fldcaption" value="التفاصيل"/>
+</field>
+<field id="pic"><phrase id="fldcaption" value="الصورة الرئيسية"/>
+</field>
+<field id="key_wrds"><phrase id="fldcaption" value="كلمات البحث"/>
+</field>
+</table>
+<table id="offers"><phrase id="tblcaption" value="عروض"/>
+<field id="id"><phrase id="fldcaption" value="م"/>
+</field>
+<field id="offers_title"><phrase id="fldcaption" value="عنوان العرض"/>
+</field>
+<field id="offers_brief"><phrase id="fldcaption" value="ملخص العرض"/>
+</field>
+<field id="offers_details"><phrase id="fldcaption" value="تفاصيل العرض"/>
+</field>
+<field id="offers_pic"><phrase id="fldcaption" value="صورة رئيسية"/>
+</field>
+<field id="project"><phrase id="fldcaption" value="المشروع"/>
+</field>
+<field id="offers_keywrds"><phrase id="fldcaption" value="كلمات البحث"/>
+</field>
+</table>
+<table id="phones"><phrase id="tblcaption" value="تليفونات الشركة"/>
+<field id="id"><phrase id="fldcaption" value="م"/>
+</field>
+<field id="phone_type"><phrase id="fldcaption" value="نوع التليفون"/>
 <phrase id="fldtagvalue1" value="&lt;i class=&quot;fas fa-phone-volume&quot;&gt;&lt;/i&gt;"/>
-<phrase id="fldtagcaption1" value="Phone"/>
+<phrase id="fldtagcaption1" value="أرضي"/>
 <phrase id="fldtagvalue2" value="&lt;i class=&quot;fas fa-mobile-alt&quot;&gt;&lt;/i&gt;"/>
-<phrase id="fldtagcaption2" value="Mobile"/>
+<phrase id="fldtagcaption2" value="محمول"/>
 </field>
-<field id="phone_no"><phrase id="fldcaption" value="phone no"/>
+<field id="phone_no"><phrase id="fldcaption" value="رقم التليفون"/>
 </field>
-<field id="branch"><phrase id="fldcaption" value="branch"/>
-</field>
-</table>
-<table id="photo_albums"><phrase id="tblcaption" value="photo albums"/>
-<field id="id"><phrase id="fldcaption" value="id"/>
-</field>
-<field id="album_title"><phrase id="fldcaption" value="album title"/>
-</field>
-<field id="album_imge"><phrase id="fldcaption" value="album Imge"/>
+<field id="branch"><phrase id="fldcaption" value="المقر"/>
 </field>
 </table>
-<table id="photos"><phrase id="tblcaption" value="photos"/>
-<field id="id"><phrase id="fldcaption" value="id"/>
+<table id="photo_albums"><phrase id="tblcaption" value="ألبومات الصور"/>
+<field id="id"><phrase id="fldcaption" value="م"/>
 </field>
-<field id="title"><phrase id="fldcaption" value="title"/>
+<field id="album_title"><phrase id="fldcaption" value="عنوان الألبوم"/>
 </field>
-<field id="album_name"><phrase id="fldcaption" value="album name"/>
-</field>
-<field id="images"><phrase id="fldcaption" value="images"/>
+<field id="album_imge"><phrase id="fldcaption" value="صورة معبرة"/>
 </field>
 </table>
-<table id="projects"><phrase id="tblcaption" value="projects"/>
-<field id="id"><phrase id="fldcaption" value="id"/>
+<table id="photos"><phrase id="tblcaption" value="الصور"/>
+<field id="id"><phrase id="fldcaption" value="م"/>
 </field>
-<field id="project_title"><phrase id="fldcaption" value="project title"/>
+<field id="title"><phrase id="fldcaption" value="العنوان"/>
 </field>
-<field id="project_brief"><phrase id="fldcaption" value="project brief"/>
+<field id="album_name"><phrase id="fldcaption" value="اسم الألبوم"/>
+</field>
+<field id="images"><phrase id="fldcaption" value="الصورة"/>
+</field>
+</table>
+<table id="projects"><phrase id="tblcaption" value="المشروعات"/>
+<field id="id"><phrase id="fldcaption" value="م"/>
+</field>
+<field id="project_title"><phrase id="fldcaption" value="اسم المشروع"/>
+</field>
+<field id="project_brief"><phrase id="fldcaption" value="وصف مختصر للمشروع"/>
 </field>
 <field id="project_details"><phrase id="fldcaption" value="project details"/>
 </field>
-<field id="project_pic"><phrase id="fldcaption" value="project pic"/>
+<field id="project_pic"><phrase id="fldcaption" value="صورة المشروع"/>
 </field>
-<field id="project_keywrds"><phrase id="fldcaption" value="project keywrds"/>
-</field>
-</table>
-<table id="sectors"><phrase id="tblcaption" value="sectors"/>
-<field id="id"><phrase id="fldcaption" value="id"/>
-</field>
-<field id="sector_title"><phrase id="fldcaption" value="sector title"/>
-</field>
-<field id="sector_brief"><phrase id="fldcaption" value="sector brief"/>
-</field>
-<field id="sector_details"><phrase id="fldcaption" value="sector details"/>
-</field>
-<field id="sector_icon"><phrase id="fldcaption" value="sector icon"/>
-</field>
-<field id="sector_pic"><phrase id="fldcaption" value="sector pic"/>
-</field>
-<field id="sector_keywrds"><phrase id="fldcaption" value="sector keywrds"/>
+<field id="project_keywrds"><phrase id="fldcaption" value="كلمات البحث"/>
 </field>
 </table>
-<table id="slide"><phrase id="tblcaption" value="slide"/>
-<field id="id"><phrase id="fldcaption" value="id"/>
+<table id="sectors"><phrase id="tblcaption" value="قطاعات الشركة"/>
+<field id="id"><phrase id="fldcaption" value="م"/>
 </field>
-<field id="brief"><phrase id="fldcaption" value="brief"/>
+<field id="sector_title"><phrase id="fldcaption" value="عنوان القطاع"/>
 </field>
-<field id="slink"><phrase id="fldcaption" value="slink"/>
+<field id="sector_brief"><phrase id="fldcaption" value="وصف مختصر"/>
 </field>
-<field id="pic"><phrase id="fldcaption" value="pic"/>
+<field id="sector_details"><phrase id="fldcaption" value="تفاصيل"/>
+</field>
+<field id="sector_icon"><phrase id="fldcaption" value="الأيقونة"/>
+</field>
+<field id="sector_pic"><phrase id="fldcaption" value="صورة"/>
+</field>
+<field id="sector_keywrds"><phrase id="fldcaption" value="كلمات البحث"/>
 </field>
 </table>
-<table id="social"><phrase id="tblcaption" value="social"/>
-<field id="id"><phrase id="fldcaption" value="id"/>
+<table id="slide"><phrase id="tblcaption" value="معرض الصور الرئيسي"/>
+<field id="id"><phrase id="fldcaption" value="م"/>
 </field>
-<field id="social_type"><phrase id="fldcaption" value="social type"/>
+<field id="brief"><phrase id="fldcaption" value="ملخص"/>
+</field>
+<field id="slink"><phrase id="fldcaption" value="لينك"/>
+</field>
+<field id="pic"><phrase id="fldcaption" value="الصورة "/>
+</field>
+</table>
+<table id="social"><phrase id="tblcaption" value="مواقع التواصل الاجتماعي"/>
+<field id="id"><phrase id="fldcaption" value="م"/>
+</field>
+<field id="social_type"><phrase id="fldcaption" value="اسم الموقع"/>
 <phrase id="fldtagvalue1" value="&lt;i class=&quot;fab fa-twitter&quot;&gt;&lt;/i&gt;"/>
 <phrase id="fldtagcaption1" value="Twitter"/>
-<phrase id="fldtagvalue2" value="&lt;i class=&quot;fab fa-twitter&quot;&gt;&lt;/i&gt;"/>
+<phrase id="fldtagvalue2" value="&lt;i class=&quot;fab fa-facebook-f&quot;&gt;&lt;/i&gt;"/>
 <phrase id="fldtagcaption2" value="Facebook"/>
 <phrase id="fldtagvalue3" value="&lt;i class=&quot;fab fa-linkedin-in&quot;&gt;&lt;/i&gt;"/>
 <phrase id="fldtagcaption3" value="Linked in"/>
@@ -668,41 +668,41 @@
 <phrase id="fldtagvalue9" value="&lt;i class=&quot;fab fa-whatsapp&quot;&gt;&lt;/i&gt;"/>
 <phrase id="fldtagcaption9" value="Whatsapp"/>
 </field>
-<field id="social_links"><phrase id="fldcaption" value="social links"/>
+<field id="social_links"><phrase id="fldcaption" value="رابط الصفحة"/>
 </field>
 </table>
-<table id="study"><phrase id="tblcaption" value="study"/>
-<field id="id"><phrase id="fldcaption" value="id"/>
+<table id="study"><phrase id="tblcaption" value="دراسات الجدوى"/>
+<field id="id"><phrase id="fldcaption" value="م"/>
 </field>
-<field id="title"><phrase id="fldcaption" value="title"/>
+<field id="title"><phrase id="fldcaption" value="العنوان"/>
 </field>
-<field id="breif"><phrase id="fldcaption" value="breif"/>
+<field id="breif"><phrase id="fldcaption" value="وصف مختصر"/>
 </field>
-<field id="details"><phrase id="fldcaption" value="details"/>
+<field id="details"><phrase id="fldcaption" value="التفاصيل"/>
 </field>
-<field id="pic"><phrase id="fldcaption" value="pic"/>
+<field id="pic"><phrase id="fldcaption" value="الصورة الرئيسية"/>
 </field>
-<field id="key_wrds"><phrase id="fldcaption" value="key wrds"/>
-</field>
-</table>
-<table id="top_adv"><phrase id="tblcaption" value="top adv"/>
-<field id="id"><phrase id="fldcaption" value="id"/>
-</field>
-<field id="title"><phrase id="fldcaption" value="title"/>
-</field>
-<field id="pic"><phrase id="fldcaption" value="pic"/>
-</field>
-<field id="link"><phrase id="fldcaption" value="link"/>
+<field id="key_wrds"><phrase id="fldcaption" value="كلمات البحث"/>
 </field>
 </table>
-<table id="videos_library"><phrase id="tblcaption" value="videos library"/>
+<table id="top_adv"><phrase id="tblcaption" value="الإعلان الرئيسي"/>
+<field id="id"><phrase id="fldcaption" value="م"/>
+</field>
+<field id="title"><phrase id="fldcaption" value="العنوان"/>
+</field>
+<field id="pic"><phrase id="fldcaption" value="الصورة الرئيسية"/>
+</field>
+<field id="link"><phrase id="fldcaption" value="الرابط"/>
+</field>
+</table>
+<table id="videos_library"><phrase id="tblcaption" value="مكتبة الفيديو"/>
 <field id="vid"><phrase id="fldcaption" value="vid"/>
 </field>
-<field id="vtitle"><phrase id="fldcaption" value="v Title"/>
+<field id="vtitle"><phrase id="fldcaption" value="عنوان الفيديو"/>
 </field>
-<field id="vimage"><phrase id="fldcaption" value="v Image"/>
+<field id="vimage"><phrase id="fldcaption" value="صورة معبرة"/>
 </field>
-<field id="vurl"><phrase id="fldcaption" value="v Url"/>
+<field id="vurl"><phrase id="fldcaption" value="رابط الفيديو"/>
 </field>
 </table>
 </project>
