@@ -17,13 +17,15 @@ include_once('header.php');
 <body>
        
     <!-- ============ Content box =============== -->
-    <div class="container detailsPage my-5">
-        <?php
+    <?php
        $sql = "SELECT * FROM `offers` WHERE `id` LIKE '".$ids."'";
         $result = $conn->query($sql);
         if($row = $result->fetch_assoc())        
         echo '
+    <div class="container-fluid coverpage py-3" style="background:url(\'uploads/'.$row['offers_pic'].'\')">
         <h2 class="my-3">'.$row['offers_title'].'</h2>
+    </div>
+    <div class="container detailsPage my-5">
         
         <div class="row">
             <div class="col-md-8">

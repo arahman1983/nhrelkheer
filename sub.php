@@ -14,31 +14,28 @@ include_once('header.php');
 <html>
 <body>
        <?php
-
-        echo '<div class="container detailsPage my-5">
-            <div class="row my-5">
-                    <div class="col-md-4 bt-order"></div>
-                    <div class="col-md-4">
-                            <div class="section-head">';
-                            switch($type){
-                                case "study":
-                                echo '<h2> دراسات الجدوى </h2>';
-                                break;
-                                case "blog":
-                                echo '<h2> معلومة زراعية </h2>';
-                                break;
-                                default :
-                                echo 'لا يوجد قسم بهذا الاسم';
-                            }    
-                            echo'</div>
-                        </div>
-                    <div class="col-md-4 bt-order"></div>
-                </div>
-        <div class="row">';
+        
+        $sub_sql = "SELECT * FROM `".$type."` ORDER BY `id` DESC ";
+        $sub_result = $conn->query($sub_sql);
+        if($sub_row = $sub_result->fetch_assoc()){
+        echo '<div class="container-fluid coverpage py-3" style="background:url(\'uploads/'.$row['pic'].'\')">';
+        }
+            switch($type){
+                case "study":
+                echo '<h2 class="my-3"> دراسات الجدوى </h2>';
+                break;
+                case "blog":
+                echo '<h2 class="my-3"> معلومة زراعية </h2>';
+                break;
+                default :
+                echo 'لا يوجد قسم بهذا الاسم';
+            }    
+            echo'</div>
+            <div class="row">';
+        
 
         $sub_sql = "SELECT * FROM `".$type."` ORDER BY `id` DESC ";
         $sub_result = $conn->query($sub_sql);
-        echo $sub_result->fetch_assoc();
         while($sub_row = $sub_result->fetch_assoc()){
             echo'
             <a href="details.php?p='.$type.'&id='.$sub_row['id'].'" class="col-md-4 col-sm-6 my-3">

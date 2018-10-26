@@ -393,6 +393,23 @@ color: #5bbf21 !important;
     cursor: pointer;
 }
 
+.coverpage{
+    background-size: cover !important;
+    background-position: center !important;
+    height: 200px;
+    background-repeat: no-repeat !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    
+}
+
+.coverpage h2{
+    color: #FFF;
+    text-shadow: #000 5px;
+    vertical-align: middle;
+
+}
+
 @media screen and (max-width: 560px){
     .vedioplayer{
         width: 100%;

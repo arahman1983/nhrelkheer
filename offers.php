@@ -14,18 +14,22 @@ include_once('header.php');
 <html>
 <body>
        <?php
+       
+       if($project == 'All'){
+        $sql = "SELECT * FROM `offers` ORDER BY `id` DESC";
+        }else{
+            $sql = "SELECT * FROM `offers` WHERE `project` LIKE '%".$project."%' ORDER BY `id` DESC";
+        }
+        $sub_result = $conn->query($sql);
+        if($sub_row = $sub_result->fetch_assoc()){
+            echo'
+            <div class="container-fluid coverpage py-3" style="background:url(\'uploads/'.$row['pic'].'\')">
+            <h2 class="my-3">عروض شركة نهر الخير</h2>
+            </div>
+            ';
+        }
 
-        echo '<div class="container detailsPage my-5">
-            <div class="row my-5">
-                    <div class="col-md-4 bt-order"></div>
-                    <div class="col-md-4 mx-auto">
-                            <div class="section-head">
-                            <h2>عروض شركة نهر الخير</h2>
-                           </div>
-                        </div>
-                    <div class="col-md-4 bt-order"></div>
-                </div>
-        <div class="row">';
+        echo '<div class="row">';
 
         if($project == 'All'){
             $sql = "SELECT * FROM `offers` ORDER BY `id` DESC";
@@ -33,7 +37,6 @@ include_once('header.php');
             $sql = "SELECT * FROM `offers` WHERE `project` LIKE '%".$project."%' ORDER BY `id` DESC";
         }
         $sub_result = $conn->query($sql);
-        echo $sub_result->fetch_assoc();
         while($sub_row = $sub_result->fetch_assoc()){
             echo'
             <a href="offer.php?p=projects&id='.$sub_row['id'].'" class="col-md-4 col-sm-6 my-3">
