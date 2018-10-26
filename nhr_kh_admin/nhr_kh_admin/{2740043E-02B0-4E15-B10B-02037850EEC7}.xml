@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<configuration date="2018/10/26" author="e.World Technology Ltd.">
+<project id="{2740043E-02B0-4E15-B10B-02037850EEC7}" file="E:\MyWork\nahrelkheir\nhr_kh_admin.pmp" name="nhr_kh_admin" product="PHPMaker" version="12.0" datetime="2018/10/26 08:33:23" languagefolder="phplang" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,0">
+<table id="about" name="about" caption="about" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,111" priv="1"/>
+<table id="admin_users" name="admin_users" caption="admin users" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,0" priv="1"/>
+<table id="blog" name="blog" caption="blog" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,111" priv="1"/>
+<table id="branches" name="branches" caption="branches" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,111" priv="1"/>
+<table id="co_emails" name="co_emails" caption="co emails" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,111" priv="1"/>
+<table id="email_list" name="email_list" caption="email list" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,111" priv="1"/>
+<table id="news" name="news" caption="news" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,111" priv="1"/>
+<table id="offers" name="offers" caption="offers" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,111" priv="1"/>
+<table id="phones" name="phones" caption="phones" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,111" priv="1"/>
+<table id="photo_albums" name="photo_albums" caption="photo albums" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,111" priv="1"/>
+<table id="photos" name="photos" caption="photos" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,111" priv="1"/>
+<table id="projects" name="projects" caption="projects" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,111" priv="1"/>
+<table id="sectors" name="sectors" caption="sectors" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,111" priv="1"/>
+<table id="slide" name="slide" caption="slide" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,111" priv="1"/>
+<table id="social" name="social" caption="social" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,111" priv="1"/>
+<table id="study" name="study" caption="study" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,111" priv="1"/>
+<table id="top_adv" name="top_adv" caption="top adv" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,111" priv="1"/>
+<table id="videos_library" name="videos_library" caption="videos library" userlevel="-2,&quot;Anonymous&quot;,0;0,&quot;Default&quot;,111" priv="1"/>
+</project></configuration>

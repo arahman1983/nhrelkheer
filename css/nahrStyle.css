@@ -1,0 +1,398 @@
+body{
+    max-width: 100%;
+    overflow-x: hidden;
+   
+}
+/* ====================== Reset css ========================== */
+a, a :hover, a :visited, a :active{
+    color: inherit !important ;
+    text-decoration: none !important ;
+}
+a {
+    opacity: 1;
+    transition: opacity 1s;
+}
+a :hover {
+    opacity: 0.6;
+    transition: opacity 1s;
+
+}
+ul{
+    padding: 0;
+}
+li{
+    list-style: none;
+}
+.row{
+    width:100% !important;
+}
+
+/* ====================== Custom Fonts ================= */
+@keyframes fadeinToLeft {
+    from { opacity: 0; margin-right: 80% }
+    to   { opacity: 1; margin-right: 0 }
+}
+@keyframes fadeinToRight {
+    from { opacity: 0; margin-right: -80% }
+    to   { opacity: 1; margin-right: 0 }
+}
+@font-face{
+   src: url("../fonts/Cairo-Bold.ttf");
+   font-family: CairoBold;
+}
+@font-face{
+    src: url("../fonts/Cairo-SemiBold.ttf");
+    font-family: CairoSemiBold; 
+}
+html,body{
+    font-family: CairoSemiBold,sans-serif;
+    direction: rtl;
+}
+h1,h2,h3,h4,h5{
+    font-family: CairoBold,sans-serif;
+}
+.new-dir{
+    direction: ltr !important;
+}
+::selection {
+    background: #5bbf21;
+    color: #000;
+}
+/* ============================ custom btn =================== */
+.btn-success {
+    color: #000;
+    background-color: #5bbf21;
+    border-color: #5bbf21;
+}
+.btn-success:hover, .btn-success:active  {
+    color: #000;
+    background-color:#57aa1c;
+    border-color: #57aa1c;
+}
+/* ======================== header style ============= */
+.top-bar{
+    background: #5bbf21;
+    color: #FFF;
+}
+.top-bar marquee a{
+    margin-right: 1rem;
+}
+.top-bar marquee a:hover {
+    color: #fdb913 !important;
+    transition: color 1s;
+}
+.logo-bar .arlogo{
+    max-width: 80%;
+    height: auto;
+    margin: auto;
+    animation: fadeinToLeft 1s;
+    vertical-align: middle;
+}
+
+.logo-bar .enlogo{
+    max-width: 80%;
+    height: auto;
+    margin: auto;
+    animation: fadeinToRight 1s;
+    vertical-align: middle;
+}
+
+.nav-bar{
+    background: #5bbf21;
+    color: #FFF;
+    box-shadow: #495057 0px 3px 5px;
+    z-index: 10000;
+}
+.navbar{
+    padding: 0rem 1rem !important;
+}
+.navbar-nav{
+    width: 100%;
+    text-align: center;
+    font-size: 90%;
+}
+.navbar-nav .nav-item{
+    width:12%;
+}
+.nav-link {
+    display: block;
+    padding: .5rem 1rem;
+    height: 100%;
+}
+
+.nav-link:focus, .nav-link:hover,.nav-item:focus, .nav-item:hover{
+    color: #000;
+    background: #fdb913;
+}
+.activel{
+    color: #000;
+    background: #fdb913;
+}
+.dropdown .dropdown-menu {
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+
+    max-height: 0;
+    display: block;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.dropdown:hover .dropdown-menu {
+    max-height: 200px;
+    opacity: 1;
+}
+/*==================== Social Icons ===================== */
+.social i{
+    color: #FFF;
+    padding-top: 8px;
+    width:30px;
+    height:30px;
+    text-align: center;
+    border-radius: 20px;
+    margin-right:0.8rem; 
+}
+.fa-facebook-f{
+    background:#3B5998
+}
+.fa-twitter{
+    background:#1DA1F2
+}
+.fa-google-plus-g{
+    background:#DB4437
+}
+.social {
+    text-align: left;
+}
+.fa-instagram{
+    background-image: linear-gradient(#515BD4, #8134AF ,#DD2A7B ,#FEDA77 , #F58529); 
+}
+.fa-youtube{
+    background: #DB4437
+}
+
+/*==================== main slider ====================== */
+.carousel-indicators{
+    z-index: 0 !important;
+}
+.carousel-caption{
+    color: #000;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 1rem;
+    padding: 1rem;
+    text-align: justify;
+}
+.sli-btn{
+    color: #5bbf21 !important;
+    font-family: CairoBold, sans-serif;
+    float: left;
+}
+.bg-green{
+    background: #5bbf21;
+}
+/* =================== company sectors =================== */
+.sectorDiv{
+    color: #000000;
+    text-align: center;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+.sectorDiv img{
+    width:50%;
+    height: auto;
+}
+.sectorDiv h3{
+    font-family: CairoBold, sans-serif;
+    padding-top: 1rem;
+}
+.sectorDiv:nth-child(1){
+background: #519b18;
+}
+.sectorDiv:nth-child(2){
+    background: #57aa1c;
+}
+.sectorDiv:nth-child(3){
+    background: #5bbf21;
+}
+.sectorDiv:nth-child(4){
+    background: #6ecc32;
+}
+/* =================================== */
+
+/* =================== Projects =================== */
+.pro-section{
+    background-color: rgba(91, 191, 33, 0.3);
+    background-image: url("../imgs/bgpro.png");
+    background-position: right;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.img-thumbnail {
+    background-color: rgba(255,255,255,0) !important;
+    border: 1px solid #5bbf21;
+    border-radius: 0px;
+}
+
+
+.swiper-container {
+    width: 100%;
+    height: 100%;
+}
+.swiper-slide {
+    text-align: center;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    height: 100%;
+}
+
+.swiper-slide img{
+    width: 100%;
+    max-height: 200px;
+    margin:auto;
+}
+
+.swiper-pagination-bullet-active{
+    background: #fdb913 !important;
+    opacity: 1;
+}
+.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction{
+    bottom: -5px !important;
+}
+.swiper-pagination-bullet{
+    background: #5bbf21;
+    opacity: 1;
+}
+
+.vedioemb{
+    width: 100%;
+    margin: auto;
+    height: 200px;
+}
+
+.vedioplayer{
+    width: 90%;
+    margin: auto;
+    height: 300px;
+}
+/* =================== section header ==================== */
+.section-head h2{
+    font-family: CairoBold, sans-serif;
+    color: #5bbf21;
+    text-align: center;
+}
+.bt-order{
+    border-bottom: #5bbf21 solid 5px;
+}
+.offers h5{
+color: #5bbf21;
+}
+.offers .btn{
+float: left;
+text-align: left;
+}
+.offers img{
+    width:100%;
+    }
+/* =================== section header ==================== */
+.news-title img{
+    float: right;
+    padding-left: 5px;
+    width: 20px;
+}
+.news-title {
+    color: #5bbf21;
+}
+
+/* ======================= Footer ===================== */
+footer > .footer1{
+background: #5bbf21;
+}
+
+footer > .footer2{
+    background: #57aa1c;
+    text-align: center;
+    color: #000;
+    }
+
+.form-control:focus {
+        color: #495057;
+        background-color: #fff;
+        border-color: #5bbf21;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(141,193,66,.25);
+ }
+.bg-nahr{
+    background: #5bbf21;
+}
+
+/* ======================== sub Pages ======================== */
+.detailsPage h2 {
+color: #5bbf21 !important;
+}
+.detailsImge{
+    max-width: 300px;
+    height: auto;
+    margin: auto;
+}
+
+.card{
+    border: #5bbf21 solid 1px;
+    padding: 2px;
+}
+.card img{
+    max-width: 100%;
+    height: auto;
+    max-height: 300px;
+    margin-bottom: 10px;
+}
+/* ------------------------------------- */
+.gallery-top {
+    height: 80%;
+    width: 100%;
+}
+.gallery-thumbs {
+    height: 10%;
+    box-sizing: border-box;
+    padding: 10px 0;
+}
+.gallery-thumbs .swiper-slide {
+    height: 100%;
+    opacity: 0.4;
+}
+.gallery-thumbs .swiper-slide-active {
+    opacity: 1;
+}
+
+#vedsrc{
+    cursor: pointer;
+}
+
+@media screen and (max-width: 560px){
+    .vedioplayer{
+        width: 100%;
+        margin: auto;
+        height: 300px;
+    }
+    .logo-bar{
+        text-align: center;
+    }
+    .bt-order{
+        display: none;
+
+    }
+}
