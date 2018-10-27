@@ -704,6 +704,12 @@
 </field>
 <field id="vurl"><phrase id="fldcaption" value="رابط الفيديو"/>
 </field>
+<field id="onhome"><phrase id="fldcaption" value="on Home"/>
+<phrase id="fldtagvalue1" value="1"/>
+<phrase id="fldtagcaption1" value="عرض على الرئيسية"/>
+<phrase id="fldtagvalue2" value="0"/>
+<phrase id="fldtagcaption2" value="عرض في المكتبة فقط"/>
+</field>
 </table>
 </project>
 </ew-language>

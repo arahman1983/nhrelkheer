@@ -31,6 +31,15 @@ include_once('header.php');
             </div>
             <div class="col-md-4 text-center">
                 <img src="uploads/'.$row['project_pic'].'" class="detailsImge">
+                <div class="row my-3">';
+                $offers_sql = "SELECT * FROM `offers` WHERE `project` LIKE '%".$row['project_title']."%' ORDER BY `id` DESC";
+                $offers_result = $conn->query($offers_sql);
+                while($offers_row = $offers_result->fetch_assoc()){
+
+                    echo '<a href="offer.php?id='.$offers_row['id'].'" class="btn btn-success m-2">'.$offers_row['offers_title'].'</a>';
+                }
+
+                echo '</div>
             </div>
         </div>
         ';

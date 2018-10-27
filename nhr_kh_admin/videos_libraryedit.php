@@ -478,6 +478,9 @@ class cvideos_library_edit extends cvideos_library {
 		if (!$this->vUrl->FldIsDetailKey) {
 			$this->vUrl->setFormValue($objForm->GetValue("x_vUrl"));
 		}
+		if (!$this->onHome->FldIsDetailKey) {
+			$this->onHome->setFormValue($objForm->GetValue("x_onHome"));
+		}
 	}
 
 	// Restore form values
@@ -487,6 +490,7 @@ class cvideos_library_edit extends cvideos_library {
 		$this->vid->CurrentValue = $this->vid->FormValue;
 		$this->vTitle->CurrentValue = $this->vTitle->FormValue;
 		$this->vUrl->CurrentValue = $this->vUrl->FormValue;
+		$this->onHome->CurrentValue = $this->onHome->FormValue;
 	}
 
 	// Load row based on key values
@@ -523,6 +527,7 @@ class cvideos_library_edit extends cvideos_library {
 		$this->vImage->Upload->DbValue = $rs->fields('vImage');
 		$this->vImage->CurrentValue = $this->vImage->Upload->DbValue;
 		$this->vUrl->setDbValue($rs->fields('vUrl'));
+		$this->onHome->setDbValue($rs->fields('onHome'));
 	}
 
 	// Load DbValue from recordset
@@ -533,6 +538,7 @@ class cvideos_library_edit extends cvideos_library {
 		$this->vTitle->DbValue = $row['vTitle'];
 		$this->vImage->Upload->DbValue = $row['vImage'];
 		$this->vUrl->DbValue = $row['vUrl'];
+		$this->onHome->DbValue = $row['onHome'];
 	}
 
 	// Render row values based on field settings
@@ -549,6 +555,7 @@ class cvideos_library_edit extends cvideos_library {
 		// vTitle
 		// vImage
 		// vUrl
+		// onHome
 
 		if ($this->RowType == EW_ROWTYPE_VIEW) { // View row
 
@@ -572,6 +579,14 @@ class cvideos_library_edit extends cvideos_library {
 		// vUrl
 		$this->vUrl->ViewValue = $this->vUrl->CurrentValue;
 		$this->vUrl->ViewCustomAttributes = "";
+
+		// onHome
+		if (strval($this->onHome->CurrentValue) <> "") {
+			$this->onHome->ViewValue = $this->onHome->OptionCaption($this->onHome->CurrentValue);
+		} else {
+			$this->onHome->ViewValue = NULL;
+		}
+		$this->onHome->ViewCustomAttributes = "";
 
 			// vid
 			$this->vid->LinkCustomAttributes = "";
@@ -609,6 +624,11 @@ class cvideos_library_edit extends cvideos_library {
 			$this->vUrl->LinkCustomAttributes = "";
 			$this->vUrl->HrefValue = "";
 			$this->vUrl->TooltipValue = "";
+
+			// onHome
+			$this->onHome->LinkCustomAttributes = "";
+			$this->onHome->HrefValue = "";
+			$this->onHome->TooltipValue = "";
 		} elseif ($this->RowType == EW_ROWTYPE_EDIT) { // Edit row
 
 			// vid
@@ -642,6 +662,10 @@ class cvideos_library_edit extends cvideos_library {
 			$this->vUrl->EditValue = ew_HtmlEncode($this->vUrl->CurrentValue);
 			$this->vUrl->PlaceHolder = ew_RemoveHtml($this->vUrl->FldCaption());
 
+			// onHome
+			$this->onHome->EditCustomAttributes = "";
+			$this->onHome->EditValue = $this->onHome->Options(FALSE);
+
 			// Edit refer script
 			// vid
 
@@ -662,6 +686,9 @@ class cvideos_library_edit extends cvideos_library {
 
 			// vUrl
 			$this->vUrl->HrefValue = "";
+
+			// onHome
+			$this->onHome->HrefValue = "";
 		}
 		if ($this->RowType == EW_ROWTYPE_ADD ||
 			$this->RowType == EW_ROWTYPE_EDIT ||
@@ -744,6 +771,9 @@ class cvideos_library_edit extends cvideos_library {
 
 			// vUrl
 			$this->vUrl->SetDbValueDef($rsnew, $this->vUrl->CurrentValue, "", $this->vUrl->ReadOnly);
+
+			// onHome
+			$this->onHome->SetDbValueDef($rsnew, $this->onHome->CurrentValue, NULL, $this->onHome->ReadOnly);
 			if (!$this->vImage->Upload->KeepFile) {
 				if (!ew_Empty($this->vImage->Upload->Value)) {
 					$rsnew['vImage'] = ew_UploadFileNameEx(ew_UploadPathEx(TRUE, $this->vImage->UploadPath), $rsnew['vImage']); // Get new file name
@@ -951,8 +981,10 @@ fvideos_libraryedit.ValidateRequired = false;
 <?php } ?>
 
 // Dynamic selection lists
-// Form object for search
+fvideos_libraryedit.Lists["x_onHome"] = {"LinkField":"","Ajax":false,"AutoFill":false,"DisplayFields":["","","",""],"ParentFields":[],"ChildFields":[],"FilterFields":[],"Options":[],"Template":""};
+fvideos_libraryedit.Lists["x_onHome"].Options = <?php echo json_encode($videos_library->onHome->Options()) ?>;
 
+// Form object for search
 </script>
 <script type="text/javascript">
 
@@ -1029,6 +1061,40 @@ $videos_library_edit->ShowMessage();
 <input type="text" data-table="videos_library" data-field="x_vUrl" name="x_vUrl" id="x_vUrl" size="70" placeholder="<?php echo ew_HtmlEncode($videos_library->vUrl->getPlaceHolder()) ?>" value="<?php echo $videos_library->vUrl->EditValue ?>"<?php echo $videos_library->vUrl->EditAttributes() ?>>
 </span>
 <?php echo $videos_library->vUrl->CustomMsg ?></div></div>
+	</div>
+<?php } ?>
+<?php if ($videos_library->onHome->Visible) { // onHome ?>
+	<div id="r_onHome" class="form-group">
+		<label id="elh_videos_library_onHome" class="col-sm-2 control-label ewLabel"><?php echo $videos_library->onHome->FldCaption() ?></label>
+		<div class="col-sm-10"><div<?php echo $videos_library->onHome->CellAttributes() ?>>
+<span id="el_videos_library_onHome">
+<div id="tp_x_onHome" class="ewTemplate"><input type="radio" data-table="videos_library" data-field="x_onHome" data-value-separator="<?php echo ew_HtmlEncode(is_array($videos_library->onHome->DisplayValueSeparator) ? json_encode($videos_library->onHome->DisplayValueSeparator) : $videos_library->onHome->DisplayValueSeparator) ?>" name="x_onHome" id="x_onHome" value="{value}"<?php echo $videos_library->onHome->EditAttributes() ?>></div>
+<div id="dsl_x_onHome" data-repeatcolumn="5" class="ewItemList"><div>
+<?php
+$arwrk = $videos_library->onHome->EditValue;
+if (is_array($arwrk)) {
+	$rowswrk = count($arwrk);
+	$emptywrk = TRUE;
+	for ($rowcntwrk = 0; $rowcntwrk < $rowswrk; $rowcntwrk++) {
+		$selwrk = (strval($videos_library->onHome->CurrentValue) == strval($arwrk[$rowcntwrk][0])) ? " checked" : "";
+		if ($selwrk <> "")
+			$emptywrk = FALSE;
+?>
+<?php echo ew_RepeatColumnTable($rowswrk, $rowcntwrk, 5, 1) ?>
+<label class="radio-inline"><input type="radio" data-table="videos_library" data-field="x_onHome" name="x_onHome" id="x_onHome_<?php echo $rowcntwrk ?>" value="<?php echo ew_HtmlEncode($arwrk[$rowcntwrk][0]) ?>"<?php echo $selwrk ?><?php echo $videos_library->onHome->EditAttributes() ?>><?php echo $videos_library->onHome->DisplayValue($arwrk[$rowcntwrk]) ?></label>
+<?php echo ew_RepeatColumnTable($rowswrk, $rowcntwrk, 5, 2) ?>
+<?php
+	}
+	if ($emptywrk && strval($videos_library->onHome->CurrentValue) <> "") {
+?>
+<label class="radio-inline"><input type="radio" data-table="videos_library" data-field="x_onHome" name="x_onHome" id="x_onHome_<?php echo $rowswrk ?>" value="<?php echo ew_HtmlEncode($videos_library->onHome->CurrentValue) ?>" checked<?php echo $videos_library->onHome->EditAttributes() ?>><?php echo $videos_library->onHome->CurrentValue ?></label>
+<?php
+    }
+}
+?>
+</div></div>
+</span>
+<?php echo $videos_library->onHome->CustomMsg ?></div></div>
 	</div>
 <?php } ?>
 </div>

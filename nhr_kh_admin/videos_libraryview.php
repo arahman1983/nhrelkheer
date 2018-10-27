@@ -555,6 +555,7 @@ class cvideos_library_view extends cvideos_library {
 		$this->vImage->Upload->DbValue = $rs->fields('vImage');
 		$this->vImage->CurrentValue = $this->vImage->Upload->DbValue;
 		$this->vUrl->setDbValue($rs->fields('vUrl'));
+		$this->onHome->setDbValue($rs->fields('onHome'));
 	}
 
 	// Load DbValue from recordset
@@ -565,6 +566,7 @@ class cvideos_library_view extends cvideos_library {
 		$this->vTitle->DbValue = $row['vTitle'];
 		$this->vImage->Upload->DbValue = $row['vImage'];
 		$this->vUrl->DbValue = $row['vUrl'];
+		$this->onHome->DbValue = $row['onHome'];
 	}
 
 	// Render row values based on field settings
@@ -587,6 +589,7 @@ class cvideos_library_view extends cvideos_library {
 		// vTitle
 		// vImage
 		// vUrl
+		// onHome
 
 		if ($this->RowType == EW_ROWTYPE_VIEW) { // View row
 
@@ -610,6 +613,14 @@ class cvideos_library_view extends cvideos_library {
 		// vUrl
 		$this->vUrl->ViewValue = $this->vUrl->CurrentValue;
 		$this->vUrl->ViewCustomAttributes = "";
+
+		// onHome
+		if (strval($this->onHome->CurrentValue) <> "") {
+			$this->onHome->ViewValue = $this->onHome->OptionCaption($this->onHome->CurrentValue);
+		} else {
+			$this->onHome->ViewValue = NULL;
+		}
+		$this->onHome->ViewCustomAttributes = "";
 
 			// vid
 			$this->vid->LinkCustomAttributes = "";
@@ -647,6 +658,11 @@ class cvideos_library_view extends cvideos_library {
 			$this->vUrl->LinkCustomAttributes = "";
 			$this->vUrl->HrefValue = "";
 			$this->vUrl->TooltipValue = "";
+
+			// onHome
+			$this->onHome->LinkCustomAttributes = "";
+			$this->onHome->HrefValue = "";
+			$this->onHome->TooltipValue = "";
 		}
 
 		// Call Row Rendered event
@@ -792,8 +808,10 @@ fvideos_libraryview.ValidateRequired = false;
 <?php } ?>
 
 // Dynamic selection lists
-// Form object for search
+fvideos_libraryview.Lists["x_onHome"] = {"LinkField":"","Ajax":false,"AutoFill":false,"DisplayFields":["","","",""],"ParentFields":[],"ChildFields":[],"FilterFields":[],"Options":[],"Template":""};
+fvideos_libraryview.Lists["x_onHome"].Options = <?php echo json_encode($videos_library->onHome->Options()) ?>;
 
+// Form object for search
 </script>
 <script type="text/javascript">
 
@@ -860,6 +878,17 @@ $videos_library_view->ShowMessage();
 <span id="el_videos_library_vUrl">
 <span<?php echo $videos_library->vUrl->ViewAttributes() ?>>
 <?php echo $videos_library->vUrl->ViewValue ?></span>
+</span>
+</td>
+	</tr>
+<?php } ?>
+<?php if ($videos_library->onHome->Visible) { // onHome ?>
+	<tr id="r_onHome">
+		<td><span id="elh_videos_library_onHome"><?php echo $videos_library->onHome->FldCaption() ?></span></td>
+		<td data-name="onHome"<?php echo $videos_library->onHome->CellAttributes() ?>>
+<span id="el_videos_library_onHome">
+<span<?php echo $videos_library->onHome->ViewAttributes() ?>>
+<?php echo $videos_library->onHome->ViewValue ?></span>
 </span>
 </td>
 	</tr>

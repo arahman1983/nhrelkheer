@@ -31,11 +31,8 @@ include_once('header.php');
 
         echo '<div class="row">';
 
-        if($project == 'All'){
-            $sql = "SELECT * FROM `offers` ORDER BY `id` DESC";
-        }else{
-            $sql = "SELECT * FROM `offers` WHERE `project` LIKE '%".$project."%' ORDER BY `id` DESC";
-        }
+        
+        $sql = "SELECT * FROM `offers` ORDER BY `id` DESC";
         $sub_result = $conn->query($sql);
         while($sub_row = $sub_result->fetch_assoc()){
             echo'

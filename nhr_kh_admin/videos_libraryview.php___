@@ -14,12 +14,12 @@ ob_start(); // Turn on output buffering
 // Page class
 //
 
-$videos_library_delete = NULL; // Initialize page object first
+$videos_library_view = NULL; // Initialize page object first
 
-class cvideos_library_delete extends cvideos_library {
+class cvideos_library_view extends cvideos_library {
 
 	// Page ID
-	var $PageID = 'delete';
+	var $PageID = 'view';
 
 	// Project ID
 	var $ProjectID = "{2740043E-02B0-4E15-B10B-02037850EEC7}";
@@ -28,7 +28,7 @@ class cvideos_library_delete extends cvideos_library {
 	var $TableName = 'videos_library';
 
 	// Page object name
-	var $PageObjName = 'videos_library_delete';
+	var $PageObjName = 'videos_library_view';
 
 	// Page name
 	function PageName() {
@@ -41,6 +41,38 @@ class cvideos_library_delete extends cvideos_library {
 		if ($this->UseTokenInUrl) $PageUrl .= "t=" . $this->TableVar . "&"; // Add page token
 		return $PageUrl;
 	}
+
+	// Page URLs
+	var $AddUrl;
+	var $EditUrl;
+	var $CopyUrl;
+	var $DeleteUrl;
+	var $ViewUrl;
+	var $ListUrl;
+
+	// Export URLs
+	var $ExportPrintUrl;
+	var $ExportHtmlUrl;
+	var $ExportExcelUrl;
+	var $ExportWordUrl;
+	var $ExportXmlUrl;
+	var $ExportCsvUrl;
+	var $ExportPdfUrl;
+
+	// Custom export
+	var $ExportExcelCustom = FALSE;
+	var $ExportWordCustom = FALSE;
+	var $ExportPdfCustom = FALSE;
+	var $ExportEmailCustom = FALSE;
+
+	// Update URLs
+	var $InlineAddUrl;
+	var $InlineCopyUrl;
+	var $InlineEditUrl;
+	var $GridAddUrl;
+	var $GridEditUrl;
+	var $MultiDeleteUrl;
+	var $MultiUpdateUrl;
 
 	// Message
 	function getMessage() {
@@ -227,13 +259,25 @@ class cvideos_library_delete extends cvideos_library {
 			$GLOBALS["videos_library"] = &$this;
 			$GLOBALS["Table"] = &$GLOBALS["videos_library"];
 		}
+		$KeyUrl = "";
+		if (@$_GET["vid"] <> "") {
+			$this->RecKey["vid"] = $_GET["vid"];
+			$KeyUrl .= "&amp;vid=" . urlencode($this->RecKey["vid"]);
+		}
+		$this->ExportPrintUrl = $this->PageUrl() . "export=print" . $KeyUrl;
+		$this->ExportHtmlUrl = $this->PageUrl() . "export=html" . $KeyUrl;
+		$this->ExportExcelUrl = $this->PageUrl() . "export=excel" . $KeyUrl;
+		$this->ExportWordUrl = $this->PageUrl() . "export=word" . $KeyUrl;
+		$this->ExportXmlUrl = $this->PageUrl() . "export=xml" . $KeyUrl;
+		$this->ExportCsvUrl = $this->PageUrl() . "export=csv" . $KeyUrl;
+		$this->ExportPdfUrl = $this->PageUrl() . "export=pdf" . $KeyUrl;
 
 		// Table object (admin_users)
 		if (!isset($GLOBALS['admin_users'])) $GLOBALS['admin_users'] = new cadmin_users();
 
 		// Page ID
 		if (!defined("EW_PAGE_ID"))
-			define("EW_PAGE_ID", 'delete', TRUE);
+			define("EW_PAGE_ID", 'view', TRUE);
 
 		// Table name (for backward compatibility)
 		if (!defined("EW_TABLE_NAME"))
@@ -250,6 +294,19 @@ class cvideos_library_delete extends cvideos_library {
 			$UserTable = new cadmin_users();
 			$UserTableConn = Conn($UserTable->DBID);
 		}
+
+		// Export options
+		$this->ExportOptions = new cListOptions();
+		$this->ExportOptions->Tag = "div";
+		$this->ExportOptions->TagClassName = "ewExportOption";
+
+		// Other options
+		$this->OtherOptions['action'] = new cListOptions();
+		$this->OtherOptions['action']->Tag = "div";
+		$this->OtherOptions['action']->TagClassName = "ewActionOption";
+		$this->OtherOptions['detail'] = new cListOptions();
+		$this->OtherOptions['detail']->Tag = "div";
+		$this->OtherOptions['detail']->TagClassName = "ewDetailOption";
 	}
 
 	// 
@@ -264,7 +321,7 @@ class cvideos_library_delete extends cvideos_library {
 		if ($Security->IsLoggedIn()) $Security->TablePermission_Loading();
 		$Security->LoadCurrentUserLevel($this->ProjectID . $this->TableName);
 		if ($Security->IsLoggedIn()) $Security->TablePermission_Loaded();
-		if (!$Security->CanDelete()) {
+		if (!$Security->CanView()) {
 			$Security->SaveLastUrl();
 			$this->setFailureMessage($Language->Phrase("NoPermission")); // Set no permission
 			if ($Security->CanList())
@@ -334,77 +391,134 @@ class cvideos_library_delete extends cvideos_library {
 		}
 		exit();
 	}
-	var $DbMasterFilter = "";
-	var $DbDetailFilter = "";
+	var $ExportOptions; // Export options
+	var $OtherOptions = array(); // Other options
+	var $DisplayRecs = 1;
+	var $DbMasterFilter;
+	var $DbDetailFilter;
 	var $StartRec;
+	var $StopRec;
 	var $TotalRecs = 0;
+	var $RecRange = 10;
 	var $RecCnt;
-	var $RecKeys = array();
+	var $RecKey = array();
 	var $Recordset;
-	var $StartRowCnt = 1;
-	var $RowCnt = 0;
 
 	//
 	// Page main
 	//
 	function Page_Main() {
 		global $Language;
+		$sReturnUrl = "";
+		$bMatchRecord = FALSE;
 
 		// Set up Breadcrumb
-		$this->SetupBreadcrumb();
+		if ($this->Export == "")
+			$this->SetupBreadcrumb();
+		if ($this->IsPageRequest()) { // Validate request
+			if (@$_GET["vid"] <> "") {
+				$this->vid->setQueryStringValue($_GET["vid"]);
+				$this->RecKey["vid"] = $this->vid->QueryStringValue;
+			} elseif (@$_POST["vid"] <> "") {
+				$this->vid->setFormValue($_POST["vid"]);
+				$this->RecKey["vid"] = $this->vid->FormValue;
+			} else {
+				$sReturnUrl = "videos_librarylist.php"; // Return to list
+			}
 
-		// Load key parameters
-		$this->RecKeys = $this->GetRecordKeys(); // Load record keys
-		$sFilter = $this->GetKeyFilter();
-		if ($sFilter == "")
-			$this->Page_Terminate("videos_librarylist.php"); // Prevent SQL injection, return to list
-
-		// Set up filter (SQL WHHERE clause) and get return SQL
-		// SQL constructor in videos_library class, videos_libraryinfo.php
-
-		$this->CurrentFilter = $sFilter;
-
-		// Get action
-		if (@$_POST["a_delete"] <> "") {
-			$this->CurrentAction = $_POST["a_delete"];
+			// Get action
+			$this->CurrentAction = "I"; // Display form
+			switch ($this->CurrentAction) {
+				case "I": // Get a record to display
+					if (!$this->LoadRow()) { // Load record based on key
+						if ($this->getSuccessMessage() == "" && $this->getFailureMessage() == "")
+							$this->setFailureMessage($Language->Phrase("NoRecord")); // Set no record message
+						$sReturnUrl = "videos_librarylist.php"; // No matching record, return to list
+					}
+			}
 		} else {
-			$this->CurrentAction = "I"; // Display record
+			$sReturnUrl = "videos_librarylist.php"; // Not page request, return to list
 		}
-		switch ($this->CurrentAction) {
-			case "D": // Delete
-				$this->SendEmail = TRUE; // Send email on delete success
-				if ($this->DeleteRows()) { // Delete rows
-					if ($this->getSuccessMessage() == "")
-						$this->setSuccessMessage($Language->Phrase("DeleteSuccess")); // Set up success message
-					$this->Page_Terminate($this->getReturnUrl()); // Return to caller
-				}
-		}
+		if ($sReturnUrl <> "")
+			$this->Page_Terminate($sReturnUrl);
+
+		// Render row
+		$this->RowType = EW_ROWTYPE_VIEW;
+		$this->ResetAttrs();
+		$this->RenderRow();
 	}
 
-	// Load recordset
-	function LoadRecordset($offset = -1, $rowcnt = -1) {
+	// Set up other options
+	function SetupOtherOptions() {
+		global $Language, $Security;
+		$options = &$this->OtherOptions;
+		$option = &$options["action"];
 
-		// Load List page SQL
-		$sSql = $this->SelectSQL();
-		$conn = &$this->Connection();
+		// Add
+		$item = &$option->Add("add");
+		$item->Body = "<a class=\"ewAction ewAdd\" title=\"" . ew_HtmlTitle($Language->Phrase("ViewPageAddLink")) . "\" data-caption=\"" . ew_HtmlTitle($Language->Phrase("ViewPageAddLink")) . "\" href=\"" . ew_HtmlEncode($this->AddUrl) . "\">" . $Language->Phrase("ViewPageAddLink") . "</a>";
+		$item->Visible = ($this->AddUrl <> "" && $Security->CanAdd());
 
-		// Load recordset
-		$dbtype = ew_GetConnectionType($this->DBID);
-		if ($this->UseSelectLimit) {
-			$conn->raiseErrorFn = $GLOBALS["EW_ERROR_FN"];
-			if ($dbtype == "MSSQL") {
-				$rs = $conn->SelectLimit($sSql, $rowcnt, $offset, array("_hasOrderBy" => trim($this->getOrderBy()) || trim($this->getSessionOrderBy())));
-			} else {
-				$rs = $conn->SelectLimit($sSql, $rowcnt, $offset);
+		// Edit
+		$item = &$option->Add("edit");
+		$item->Body = "<a class=\"ewAction ewEdit\" title=\"" . ew_HtmlTitle($Language->Phrase("ViewPageEditLink")) . "\" data-caption=\"" . ew_HtmlTitle($Language->Phrase("ViewPageEditLink")) . "\" href=\"" . ew_HtmlEncode($this->EditUrl) . "\">" . $Language->Phrase("ViewPageEditLink") . "</a>";
+		$item->Visible = ($this->EditUrl <> "" && $Security->CanEdit());
+
+		// Copy
+		$item = &$option->Add("copy");
+		$item->Body = "<a class=\"ewAction ewCopy\" title=\"" . ew_HtmlTitle($Language->Phrase("ViewPageCopyLink")) . "\" data-caption=\"" . ew_HtmlTitle($Language->Phrase("ViewPageCopyLink")) . "\" href=\"" . ew_HtmlEncode($this->CopyUrl) . "\">" . $Language->Phrase("ViewPageCopyLink") . "</a>";
+		$item->Visible = ($this->CopyUrl <> "" && $Security->CanAdd());
+
+		// Delete
+		$item = &$option->Add("delete");
+		$item->Body = "<a class=\"ewAction ewDelete\" title=\"" . ew_HtmlTitle($Language->Phrase("ViewPageDeleteLink")) . "\" data-caption=\"" . ew_HtmlTitle($Language->Phrase("ViewPageDeleteLink")) . "\" href=\"" . ew_HtmlEncode($this->DeleteUrl) . "\">" . $Language->Phrase("ViewPageDeleteLink") . "</a>";
+		$item->Visible = ($this->DeleteUrl <> "" && $Security->CanDelete());
+
+		// Set up action default
+		$option = &$options["action"];
+		$option->DropDownButtonPhrase = $Language->Phrase("ButtonActions");
+		$option->UseImageAndText = TRUE;
+		$option->UseDropDownButton = FALSE;
+		$option->UseButtonGroup = TRUE;
+		$item = &$option->Add($option->GroupOptionName);
+		$item->Body = "";
+		$item->Visible = FALSE;
+	}
+
+	// Set up starting record parameters
+	function SetUpStartRec() {
+		if ($this->DisplayRecs == 0)
+			return;
+		if ($this->IsPageRequest()) { // Validate request
+			if (@$_GET[EW_TABLE_START_REC] <> "") { // Check for "start" parameter
+				$this->StartRec = $_GET[EW_TABLE_START_REC];
+				$this->setStartRecordNumber($this->StartRec);
+			} elseif (@$_GET[EW_TABLE_PAGE_NO] <> "") {
+				$PageNo = $_GET[EW_TABLE_PAGE_NO];
+				if (is_numeric($PageNo)) {
+					$this->StartRec = ($PageNo-1)*$this->DisplayRecs+1;
+					if ($this->StartRec <= 0) {
+						$this->StartRec = 1;
+					} elseif ($this->StartRec >= intval(($this->TotalRecs-1)/$this->DisplayRecs)*$this->DisplayRecs+1) {
+						$this->StartRec = intval(($this->TotalRecs-1)/$this->DisplayRecs)*$this->DisplayRecs+1;
+					}
+					$this->setStartRecordNumber($this->StartRec);
+				}
 			}
-			$conn->raiseErrorFn = '';
-		} else {
-			$rs = ew_LoadRecordset($sSql, $conn);
 		}
+		$this->StartRec = $this->getStartRecordNumber();
 
-		// Call Recordset Selected event
-		$this->Recordset_Selected($rs);
-		return $rs;
+		// Check if correct start record counter
+		if (!is_numeric($this->StartRec) || $this->StartRec == "") { // Avoid invalid start record counter
+			$this->StartRec = 1; // Reset start record counter
+			$this->setStartRecordNumber($this->StartRec);
+		} elseif (intval($this->StartRec) > intval($this->TotalRecs)) { // Avoid starting record > total records
+			$this->StartRec = intval(($this->TotalRecs-1)/$this->DisplayRecs)*$this->DisplayRecs+1; // Point to last page first record
+			$this->setStartRecordNumber($this->StartRec);
+		} elseif (($this->StartRec-1) % $this->DisplayRecs <> 0) {
+			$this->StartRec = intval(($this->StartRec-1)/$this->DisplayRecs)*$this->DisplayRecs+1; // Point to page boundary
+			$this->setStartRecordNumber($this->StartRec);
+		}
 	}
 
 	// Load row based on key values
@@ -441,7 +555,6 @@ class cvideos_library_delete extends cvideos_library {
 		$this->vImage->Upload->DbValue = $rs->fields('vImage');
 		$this->vImage->CurrentValue = $this->vImage->Upload->DbValue;
 		$this->vUrl->setDbValue($rs->fields('vUrl'));
-		$this->onHome->setDbValue($rs->fields('onHome'));
 	}
 
 	// Load DbValue from recordset
@@ -452,7 +565,6 @@ class cvideos_library_delete extends cvideos_library {
 		$this->vTitle->DbValue = $row['vTitle'];
 		$this->vImage->Upload->DbValue = $row['vImage'];
 		$this->vUrl->DbValue = $row['vUrl'];
-		$this->onHome->DbValue = $row['onHome'];
 	}
 
 	// Render row values based on field settings
@@ -460,8 +572,14 @@ class cvideos_library_delete extends cvideos_library {
 		global $Security, $Language, $gsLanguage;
 
 		// Initialize URLs
-		// Call Row_Rendering event
+		$this->AddUrl = $this->GetAddUrl();
+		$this->EditUrl = $this->GetEditUrl();
+		$this->CopyUrl = $this->GetCopyUrl();
+		$this->DeleteUrl = $this->GetDeleteUrl();
+		$this->ListUrl = $this->GetListUrl();
+		$this->SetupOtherOptions();
 
+		// Call Row_Rendering event
 		$this->Row_Rendering();
 
 		// Common render codes for all row types
@@ -469,7 +587,6 @@ class cvideos_library_delete extends cvideos_library {
 		// vTitle
 		// vImage
 		// vUrl
-		// onHome
 
 		if ($this->RowType == EW_ROWTYPE_VIEW) { // View row
 
@@ -490,13 +607,9 @@ class cvideos_library_delete extends cvideos_library {
 		}
 		$this->vImage->ViewCustomAttributes = "";
 
-		// onHome
-		if (strval($this->onHome->CurrentValue) <> "") {
-			$this->onHome->ViewValue = $this->onHome->OptionCaption($this->onHome->CurrentValue);
-		} else {
-			$this->onHome->ViewValue = NULL;
-		}
-		$this->onHome->ViewCustomAttributes = "";
+		// vUrl
+		$this->vUrl->ViewValue = $this->vUrl->CurrentValue;
+		$this->vUrl->ViewCustomAttributes = "";
 
 			// vid
 			$this->vid->LinkCustomAttributes = "";
@@ -530,98 +643,15 @@ class cvideos_library_delete extends cvideos_library {
 				$this->vImage->LinkAttrs["class"] = "ewLightbox img-thumbnail";
 			}
 
-			// onHome
-			$this->onHome->LinkCustomAttributes = "";
-			$this->onHome->HrefValue = "";
-			$this->onHome->TooltipValue = "";
+			// vUrl
+			$this->vUrl->LinkCustomAttributes = "";
+			$this->vUrl->HrefValue = "";
+			$this->vUrl->TooltipValue = "";
 		}
 
 		// Call Row Rendered event
 		if ($this->RowType <> EW_ROWTYPE_AGGREGATEINIT)
 			$this->Row_Rendered();
-	}
-
-	//
-	// Delete records based on current filter
-	//
-	function DeleteRows() {
-		global $Language, $Security;
-		if (!$Security->CanDelete()) {
-			$this->setFailureMessage($Language->Phrase("NoDeletePermission")); // No delete permission
-			return FALSE;
-		}
-		$DeleteRows = TRUE;
-		$sSql = $this->SQL();
-		$conn = &$this->Connection();
-		$conn->raiseErrorFn = $GLOBALS["EW_ERROR_FN"];
-		$rs = $conn->Execute($sSql);
-		$conn->raiseErrorFn = '';
-		if ($rs === FALSE) {
-			return FALSE;
-		} elseif ($rs->EOF) {
-			$this->setFailureMessage($Language->Phrase("NoRecord")); // No record found
-			$rs->Close();
-			return FALSE;
-
-		//} else {
-		//	$this->LoadRowValues($rs); // Load row values
-
-		}
-		$rows = ($rs) ? $rs->GetRows() : array();
-		$conn->BeginTrans();
-
-		// Clone old rows
-		$rsold = $rows;
-		if ($rs)
-			$rs->Close();
-
-		// Call row deleting event
-		if ($DeleteRows) {
-			foreach ($rsold as $row) {
-				$DeleteRows = $this->Row_Deleting($row);
-				if (!$DeleteRows) break;
-			}
-		}
-		if ($DeleteRows) {
-			$sKey = "";
-			foreach ($rsold as $row) {
-				$sThisKey = "";
-				if ($sThisKey <> "") $sThisKey .= $GLOBALS["EW_COMPOSITE_KEY_SEPARATOR"];
-				$sThisKey .= $row['vid'];
-				$conn->raiseErrorFn = $GLOBALS["EW_ERROR_FN"];
-				$DeleteRows = $this->Delete($row); // Delete
-				$conn->raiseErrorFn = '';
-				if ($DeleteRows === FALSE)
-					break;
-				if ($sKey <> "") $sKey .= ", ";
-				$sKey .= $sThisKey;
-			}
-		} else {
-
-			// Set up error message
-			if ($this->getSuccessMessage() <> "" || $this->getFailureMessage() <> "") {
-
-				// Use the message, do nothing
-			} elseif ($this->CancelMessage <> "") {
-				$this->setFailureMessage($this->CancelMessage);
-				$this->CancelMessage = "";
-			} else {
-				$this->setFailureMessage($Language->Phrase("DeleteCancelled"));
-			}
-		}
-		if ($DeleteRows) {
-			$conn->CommitTrans(); // Commit the changes
-		} else {
-			$conn->RollbackTrans(); // Rollback changes
-		}
-
-		// Call Row Deleted event
-		if ($DeleteRows) {
-			foreach ($rsold as $row) {
-				$this->Row_Deleted($row);
-			}
-		}
-		return $DeleteRows;
 	}
 
 	// Set up Breadcrumb
@@ -630,8 +660,8 @@ class cvideos_library_delete extends cvideos_library {
 		$Breadcrumb = new cBreadcrumb();
 		$url = substr(ew_CurrentUrl(), strrpos(ew_CurrentUrl(), "/")+1);
 		$Breadcrumb->Add("list", $this->TableVar, "videos_librarylist.php", "", $this->TableVar, TRUE);
-		$PageId = "delete";
-		$Breadcrumb->Add("delete", $PageId, $url);
+		$PageId = "view";
+		$Breadcrumb->Add("view", $PageId, $url);
 	}
 
 	// Page Load event
@@ -693,35 +723,61 @@ class cvideos_library_delete extends cvideos_library {
 		//$footer = "your footer";
 
 	}
+
+	// Page Exporting event
+	// $this->ExportDoc = export document object
+	function Page_Exporting() {
+
+		//$this->ExportDoc->Text = "my header"; // Export header
+		//return FALSE; // Return FALSE to skip default export and use Row_Export event
+
+		return TRUE; // Return TRUE to use default export and skip Row_Export event
+	}
+
+	// Row Export event
+	// $this->ExportDoc = export document object
+	function Row_Export($rs) {
+
+	    //$this->ExportDoc->Text .= "my content"; // Build HTML with field value: $rs["MyField"] or $this->MyField->ViewValue
+	}
+
+	// Page Exported event
+	// $this->ExportDoc = export document object
+	function Page_Exported() {
+
+		//$this->ExportDoc->Text .= "my footer"; // Export footer
+		//echo $this->ExportDoc->Text;
+
+	}
 }
 ?>
 <?php ew_Header(FALSE) ?>
 <?php
 
 // Create page object
-if (!isset($videos_library_delete)) $videos_library_delete = new cvideos_library_delete();
+if (!isset($videos_library_view)) $videos_library_view = new cvideos_library_view();
 
 // Page init
-$videos_library_delete->Page_Init();
+$videos_library_view->Page_Init();
 
 // Page main
-$videos_library_delete->Page_Main();
+$videos_library_view->Page_Main();
 
 // Global Page Rendering event (in userfn*.php)
 Page_Rendering();
 
 // Page Rendering event
-$videos_library_delete->Page_Render();
+$videos_library_view->Page_Render();
 ?>
 <?php include_once "header.php" ?>
 <script type="text/javascript">
 
 // Form object
-var CurrentPageID = EW_PAGE_ID = "delete";
-var CurrentForm = fvideos_librarydelete = new ew_Form("fvideos_librarydelete", "delete");
+var CurrentPageID = EW_PAGE_ID = "view";
+var CurrentForm = fvideos_libraryview = new ew_Form("fvideos_libraryview", "view");
 
 // Form_CustomValidate event
-fvideos_librarydelete.Form_CustomValidate = 
+fvideos_libraryview.Form_CustomValidate = 
  function(fobj) { // DO NOT CHANGE THIS LINE!
 
  	// Your custom validation code here, return false if invalid. 
@@ -730,143 +786,91 @@ fvideos_librarydelete.Form_CustomValidate =
 
 // Use JavaScript validation or not
 <?php if (EW_CLIENT_VALIDATE) { ?>
-fvideos_librarydelete.ValidateRequired = true;
+fvideos_libraryview.ValidateRequired = true;
 <?php } else { ?>
-fvideos_librarydelete.ValidateRequired = false; 
+fvideos_libraryview.ValidateRequired = false; 
 <?php } ?>
 
 // Dynamic selection lists
-fvideos_librarydelete.Lists["x_onHome"] = {"LinkField":"","Ajax":false,"AutoFill":false,"DisplayFields":["","","",""],"ParentFields":[],"ChildFields":[],"FilterFields":[],"Options":[],"Template":""};
-fvideos_librarydelete.Lists["x_onHome"].Options = <?php echo json_encode($videos_library->onHome->Options()) ?>;
-
 // Form object for search
+
 </script>
 <script type="text/javascript">
 
 // Write your client script here, no need to add script tags.
 </script>
-<?php
-
-// Load records for display
-if ($videos_library_delete->Recordset = $videos_library_delete->LoadRecordset())
-	$videos_library_deleteTotalRecs = $videos_library_delete->Recordset->RecordCount(); // Get record count
-if ($videos_library_deleteTotalRecs <= 0) { // No record found, exit
-	if ($videos_library_delete->Recordset)
-		$videos_library_delete->Recordset->Close();
-	$videos_library_delete->Page_Terminate("videos_librarylist.php"); // Return to list
-}
-?>
 <div class="ewToolbar">
 <?php $Breadcrumb->Render(); ?>
+<?php $videos_library_view->ExportOptions->Render("body") ?>
+<?php
+	foreach ($videos_library_view->OtherOptions as &$option)
+		$option->Render("body");
+?>
 <?php echo $Language->SelectionForm(); ?>
 <div class="clearfix"></div>
 </div>
-<?php $videos_library_delete->ShowPageHeader(); ?>
+<?php $videos_library_view->ShowPageHeader(); ?>
 <?php
-$videos_library_delete->ShowMessage();
+$videos_library_view->ShowMessage();
 ?>
-<form name="fvideos_librarydelete" id="fvideos_librarydelete" class="form-inline ewForm ewDeleteForm" action="<?php echo ew_CurrentPage() ?>" method="post">
-<?php if ($videos_library_delete->CheckToken) { ?>
-<input type="hidden" name="<?php echo EW_TOKEN_NAME ?>" value="<?php echo $videos_library_delete->Token ?>">
+<form name="fvideos_libraryview" id="fvideos_libraryview" class="form-inline ewForm ewViewForm" action="<?php echo ew_CurrentPage() ?>" method="post">
+<?php if ($videos_library_view->CheckToken) { ?>
+<input type="hidden" name="<?php echo EW_TOKEN_NAME ?>" value="<?php echo $videos_library_view->Token ?>">
 <?php } ?>
 <input type="hidden" name="t" value="videos_library">
-<input type="hidden" name="a_delete" id="a_delete" value="D">
-<?php foreach ($videos_library_delete->RecKeys as $key) { ?>
-<?php $keyvalue = is_array($key) ? implode($EW_COMPOSITE_KEY_SEPARATOR, $key) : $key; ?>
-<input type="hidden" name="key_m[]" value="<?php echo ew_HtmlEncode($keyvalue) ?>">
-<?php } ?>
-<div class="ewGrid">
-<div class="<?php if (ew_IsResponsiveLayout()) { echo "table-responsive "; } ?>ewGridMiddlePanel">
-<table class="table ewTable">
-<?php echo $videos_library->TableCustomInnerHtml ?>
-	<thead>
-	<tr class="ewTableHeader">
+<table class="table table-bordered table-striped ewViewTable">
 <?php if ($videos_library->vid->Visible) { // vid ?>
-		<th><span id="elh_videos_library_vid" class="videos_library_vid"><?php echo $videos_library->vid->FldCaption() ?></span></th>
-<?php } ?>
-<?php if ($videos_library->vTitle->Visible) { // vTitle ?>
-		<th><span id="elh_videos_library_vTitle" class="videos_library_vTitle"><?php echo $videos_library->vTitle->FldCaption() ?></span></th>
-<?php } ?>
-<?php if ($videos_library->vImage->Visible) { // vImage ?>
-		<th><span id="elh_videos_library_vImage" class="videos_library_vImage"><?php echo $videos_library->vImage->FldCaption() ?></span></th>
-<?php } ?>
-<?php if ($videos_library->onHome->Visible) { // onHome ?>
-		<th><span id="elh_videos_library_onHome" class="videos_library_onHome"><?php echo $videos_library->onHome->FldCaption() ?></span></th>
-<?php } ?>
-	</tr>
-	</thead>
-	<tbody>
-<?php
-$videos_library_delete->RecCnt = 0;
-$i = 0;
-while (!$videos_library_delete->Recordset->EOF) {
-	$videos_library_delete->RecCnt++;
-	$videos_library_delete->RowCnt++;
-
-	// Set row properties
-	$videos_library->ResetAttrs();
-	$videos_library->RowType = EW_ROWTYPE_VIEW; // View
-
-	// Get the field contents
-	$videos_library_delete->LoadRowValues($videos_library_delete->Recordset);
-
-	// Render row
-	$videos_library_delete->RenderRow();
-?>
-	<tr<?php echo $videos_library->RowAttributes() ?>>
-<?php if ($videos_library->vid->Visible) { // vid ?>
-		<td<?php echo $videos_library->vid->CellAttributes() ?>>
-<span id="el<?php echo $videos_library_delete->RowCnt ?>_videos_library_vid" class="videos_library_vid">
+	<tr id="r_vid">
+		<td><span id="elh_videos_library_vid"><?php echo $videos_library->vid->FldCaption() ?></span></td>
+		<td data-name="vid"<?php echo $videos_library->vid->CellAttributes() ?>>
+<span id="el_videos_library_vid">
 <span<?php echo $videos_library->vid->ViewAttributes() ?>>
-<?php echo $videos_library->vid->ListViewValue() ?></span>
+<?php echo $videos_library->vid->ViewValue ?></span>
 </span>
 </td>
+	</tr>
 <?php } ?>
 <?php if ($videos_library->vTitle->Visible) { // vTitle ?>
-		<td<?php echo $videos_library->vTitle->CellAttributes() ?>>
-<span id="el<?php echo $videos_library_delete->RowCnt ?>_videos_library_vTitle" class="videos_library_vTitle">
+	<tr id="r_vTitle">
+		<td><span id="elh_videos_library_vTitle"><?php echo $videos_library->vTitle->FldCaption() ?></span></td>
+		<td data-name="vTitle"<?php echo $videos_library->vTitle->CellAttributes() ?>>
+<span id="el_videos_library_vTitle">
 <span<?php echo $videos_library->vTitle->ViewAttributes() ?>>
-<?php echo $videos_library->vTitle->ListViewValue() ?></span>
+<?php echo $videos_library->vTitle->ViewValue ?></span>
 </span>
 </td>
+	</tr>
 <?php } ?>
 <?php if ($videos_library->vImage->Visible) { // vImage ?>
-		<td<?php echo $videos_library->vImage->CellAttributes() ?>>
-<span id="el<?php echo $videos_library_delete->RowCnt ?>_videos_library_vImage" class="videos_library_vImage">
+	<tr id="r_vImage">
+		<td><span id="elh_videos_library_vImage"><?php echo $videos_library->vImage->FldCaption() ?></span></td>
+		<td data-name="vImage"<?php echo $videos_library->vImage->CellAttributes() ?>>
+<span id="el_videos_library_vImage">
 <span>
-<?php echo ew_GetFileViewTag($videos_library->vImage, $videos_library->vImage->ListViewValue()) ?>
+<?php echo ew_GetFileViewTag($videos_library->vImage, $videos_library->vImage->ViewValue) ?>
 </span>
 </span>
 </td>
-<?php } ?>
-<?php if ($videos_library->onHome->Visible) { // onHome ?>
-		<td<?php echo $videos_library->onHome->CellAttributes() ?>>
-<span id="el<?php echo $videos_library_delete->RowCnt ?>_videos_library_onHome" class="videos_library_onHome">
-<span<?php echo $videos_library->onHome->ViewAttributes() ?>>
-<?php echo $videos_library->onHome->ListViewValue() ?></span>
-</span>
-</td>
-<?php } ?>
 	</tr>
-<?php
-	$videos_library_delete->Recordset->MoveNext();
-}
-$videos_library_delete->Recordset->Close();
-?>
-</tbody>
+<?php } ?>
+<?php if ($videos_library->vUrl->Visible) { // vUrl ?>
+	<tr id="r_vUrl">
+		<td><span id="elh_videos_library_vUrl"><?php echo $videos_library->vUrl->FldCaption() ?></span></td>
+		<td data-name="vUrl"<?php echo $videos_library->vUrl->CellAttributes() ?>>
+<span id="el_videos_library_vUrl">
+<span<?php echo $videos_library->vUrl->ViewAttributes() ?>>
+<?php echo $videos_library->vUrl->ViewValue ?></span>
+</span>
+</td>
+	</tr>
+<?php } ?>
 </table>
-</div>
-</div>
-<div>
-<button class="btn btn-primary ewButton" name="btnAction" id="btnAction" type="submit"><?php echo $Language->Phrase("DeleteBtn") ?></button>
-<button class="btn btn-default ewButton" name="btnCancel" id="btnCancel" type="button" data-href="<?php echo $videos_library_delete->getReturnUrl() ?>"><?php echo $Language->Phrase("CancelBtn") ?></button>
-</div>
 </form>
 <script type="text/javascript">
-fvideos_librarydelete.Init();
+fvideos_libraryview.Init();
 </script>
 <?php
-$videos_library_delete->ShowPageFooter();
+$videos_library_view->ShowPageFooter();
 if (EW_DEBUG_ENABLED)
 	echo ew_DebugMsg();
 ?>
@@ -878,5 +882,5 @@ if (EW_DEBUG_ENABLED)
 </script>
 <?php include_once "footer.php" ?>
 <?php
-$videos_library_delete->Page_Terminate();
+$videos_library_view->Page_Terminate();
 ?>

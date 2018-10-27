@@ -676,6 +676,7 @@ class cvideos_library_list extends cvideos_library {
 		$sFilterList = ew_Concat($sFilterList, $this->vTitle->AdvancedSearch->ToJSON(), ","); // Field vTitle
 		$sFilterList = ew_Concat($sFilterList, $this->vImage->AdvancedSearch->ToJSON(), ","); // Field vImage
 		$sFilterList = ew_Concat($sFilterList, $this->vUrl->AdvancedSearch->ToJSON(), ","); // Field vUrl
+		$sFilterList = ew_Concat($sFilterList, $this->onHome->AdvancedSearch->ToJSON(), ","); // Field onHome
 		if ($this->BasicSearch->Keyword <> "") {
 			$sWrk = "\"" . EW_TABLE_BASIC_SEARCH . "\":\"" . ew_JsEncode2($this->BasicSearch->Keyword) . "\",\"" . EW_TABLE_BASIC_SEARCH_TYPE . "\":\"" . ew_JsEncode2($this->BasicSearch->Type) . "\"";
 			$sFilterList = ew_Concat($sFilterList, $sWrk, ",");
@@ -725,6 +726,14 @@ class cvideos_library_list extends cvideos_library {
 		$this->vUrl->AdvancedSearch->SearchValue2 = @$filter["y_vUrl"];
 		$this->vUrl->AdvancedSearch->SearchOperator2 = @$filter["w_vUrl"];
 		$this->vUrl->AdvancedSearch->Save();
+
+		// Field onHome
+		$this->onHome->AdvancedSearch->SearchValue = @$filter["x_onHome"];
+		$this->onHome->AdvancedSearch->SearchOperator = @$filter["z_onHome"];
+		$this->onHome->AdvancedSearch->SearchCondition = @$filter["v_onHome"];
+		$this->onHome->AdvancedSearch->SearchValue2 = @$filter["y_onHome"];
+		$this->onHome->AdvancedSearch->SearchOperator2 = @$filter["w_onHome"];
+		$this->onHome->AdvancedSearch->Save();
 		$this->BasicSearch->setKeyword(@$filter[EW_TABLE_BASIC_SEARCH]);
 		$this->BasicSearch->setType(@$filter[EW_TABLE_BASIC_SEARCH_TYPE]);
 	}
@@ -902,6 +911,7 @@ class cvideos_library_list extends cvideos_library {
 			$this->UpdateSort($this->vid); // vid
 			$this->UpdateSort($this->vTitle); // vTitle
 			$this->UpdateSort($this->vImage); // vImage
+			$this->UpdateSort($this->onHome); // onHome
 			$this->setStartRecordNumber(1); // Reset start position
 		}
 	}
@@ -937,6 +947,7 @@ class cvideos_library_list extends cvideos_library {
 				$this->vid->setSort("");
 				$this->vTitle->setSort("");
 				$this->vImage->setSort("");
+				$this->onHome->setSort("");
 			}
 
 			// Reset start position
@@ -1382,6 +1393,7 @@ class cvideos_library_list extends cvideos_library {
 		$this->vImage->Upload->DbValue = $rs->fields('vImage');
 		$this->vImage->CurrentValue = $this->vImage->Upload->DbValue;
 		$this->vUrl->setDbValue($rs->fields('vUrl'));
+		$this->onHome->setDbValue($rs->fields('onHome'));
 	}
 
 	// Load DbValue from recordset
@@ -1392,6 +1404,7 @@ class cvideos_library_list extends cvideos_library {
 		$this->vTitle->DbValue = $row['vTitle'];
 		$this->vImage->Upload->DbValue = $row['vImage'];
 		$this->vUrl->DbValue = $row['vUrl'];
+		$this->onHome->DbValue = $row['onHome'];
 	}
 
 	// Load old record
@@ -1437,6 +1450,7 @@ class cvideos_library_list extends cvideos_library {
 		// vTitle
 		// vImage
 		// vUrl
+		// onHome
 
 		if ($this->RowType == EW_ROWTYPE_VIEW) { // View row
 
@@ -1456,6 +1470,14 @@ class cvideos_library_list extends cvideos_library {
 			$this->vImage->ViewValue = "";
 		}
 		$this->vImage->ViewCustomAttributes = "";
+
+		// onHome
+		if (strval($this->onHome->CurrentValue) <> "") {
+			$this->onHome->ViewValue = $this->onHome->OptionCaption($this->onHome->CurrentValue);
+		} else {
+			$this->onHome->ViewValue = NULL;
+		}
+		$this->onHome->ViewCustomAttributes = "";
 
 			// vid
 			$this->vid->LinkCustomAttributes = "";
@@ -1488,6 +1510,11 @@ class cvideos_library_list extends cvideos_library {
 
 				$this->vImage->LinkAttrs["class"] = "ewLightbox img-thumbnail";
 			}
+
+			// onHome
+			$this->onHome->LinkCustomAttributes = "";
+			$this->onHome->HrefValue = "";
+			$this->onHome->TooltipValue = "";
 		}
 
 		// Call Row Rendered event
@@ -1666,8 +1693,10 @@ fvideos_librarylist.ValidateRequired = false;
 <?php } ?>
 
 // Dynamic selection lists
-// Form object for search
+fvideos_librarylist.Lists["x_onHome"] = {"LinkField":"","Ajax":false,"AutoFill":false,"DisplayFields":["","","",""],"ParentFields":[],"ChildFields":[],"FilterFields":[],"Options":[],"Template":""};
+fvideos_librarylist.Lists["x_onHome"].Options = <?php echo json_encode($videos_library->onHome->Options()) ?>;
 
+// Form object for search
 var CurrentSearchForm = fvideos_librarylistsrch = new ew_Form("fvideos_librarylistsrch");
 </script>
 <script type="text/javascript">
@@ -1800,6 +1829,15 @@ $videos_library_list->ListOptions->Render("header", "left");
         </div></div></th>
 	<?php } ?>
 <?php } ?>		
+<?php if ($videos_library->onHome->Visible) { // onHome ?>
+	<?php if ($videos_library->SortUrl($videos_library->onHome) == "") { ?>
+		<th data-name="onHome"><div id="elh_videos_library_onHome" class="videos_library_onHome"><div class="ewTableHeaderCaption"><?php echo $videos_library->onHome->FldCaption() ?></div></div></th>
+	<?php } else { ?>
+		<th data-name="onHome"><div class="ewPointer" onclick="ew_Sort(event,'<?php echo $videos_library->SortUrl($videos_library->onHome) ?>',1);"><div id="elh_videos_library_onHome" class="videos_library_onHome">
+			<div class="ewTableHeaderBtn"><span class="ewTableHeaderCaption"><?php echo $videos_library->onHome->FldCaption() ?></span><span class="ewTableHeaderSort"><?php if ($videos_library->onHome->getSort() == "ASC") { ?><span class="caret ewSortUp"></span><?php } elseif ($videos_library->onHome->getSort() == "DESC") { ?><span class="caret"></span><?php } ?></span></div>
+        </div></div></th>
+	<?php } ?>
+<?php } ?>		
 <?php
 
 // Render list options (header, right)
@@ -1887,6 +1925,14 @@ $videos_library_list->ListOptions->Render("body", "left", $videos_library_list->
 <span>
 <?php echo ew_GetFileViewTag($videos_library->vImage, $videos_library->vImage->ListViewValue()) ?>
 </span>
+</span>
+</td>
+	<?php } ?>
+	<?php if ($videos_library->onHome->Visible) { // onHome ?>
+		<td data-name="onHome"<?php echo $videos_library->onHome->CellAttributes() ?>>
+<span id="el<?php echo $videos_library_list->RowCnt ?>_videos_library_onHome" class="videos_library_onHome">
+<span<?php echo $videos_library->onHome->ViewAttributes() ?>>
+<?php echo $videos_library->onHome->ListViewValue() ?></span>
 </span>
 </td>
 	<?php } ?>

@@ -179,9 +179,9 @@ include_once('header.php');
             <div class="row">
                 <div class="col-md-4 py-3">
                     <?php
-                    $vid_sql = "SELECT * FROM `videos_library` ORDER BY `vid` DESC";
+                    $vid_sql = "SELECT * FROM `videos_library` WHERE `onHome` = 1 ORDER BY `vid` DESC";
                     $vid_result = $conn->query($vid_sql);
-                    while($vid_row = $vid_result->fetch_assoc()){
+                    if($vid_row = $vid_result->fetch_assoc()){
                         echo'
                         <h5>'.$vid_row['vTitle'].'</h5>
                         <iframe class="vedioemb" src="'.$vid_row['vUrl'].'" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>    

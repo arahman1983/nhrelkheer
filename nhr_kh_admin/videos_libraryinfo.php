@@ -11,6 +11,7 @@ class cvideos_library extends cTable {
 	var $vTitle;
 	var $vImage;
 	var $vUrl;
+	var $onHome;
 
 	//
 	// Table class constructor
@@ -58,6 +59,12 @@ class cvideos_library extends cTable {
 		// vUrl
 		$this->vUrl = new cField('videos_library', 'videos_library', 'x_vUrl', 'vUrl', '`vUrl`', '`vUrl`', 201, -1, FALSE, '`vUrl`', FALSE, FALSE, FALSE, 'FORMATTED TEXT', 'TEXT');
 		$this->fields['vUrl'] = &$this->vUrl;
+
+		// onHome
+		$this->onHome = new cField('videos_library', 'videos_library', 'x_onHome', 'onHome', '`onHome`', '`onHome`', 3, -1, FALSE, '`onHome`', FALSE, FALSE, FALSE, 'FORMATTED TEXT', 'RADIO');
+		$this->onHome->OptionCount = 2;
+		$this->onHome->FldDefaultErrMsg = $Language->Phrase("IncorrectInteger");
+		$this->fields['onHome'] = &$this->onHome;
 	}
 
 	// Single column sort
@@ -531,6 +538,7 @@ class cvideos_library extends cTable {
 		$this->vTitle->setDbValue($rs->fields('vTitle'));
 		$this->vImage->Upload->DbValue = $rs->fields('vImage');
 		$this->vUrl->setDbValue($rs->fields('vUrl'));
+		$this->onHome->setDbValue($rs->fields('onHome'));
 	}
 
 	// Render list row values
@@ -545,6 +553,7 @@ class cvideos_library extends cTable {
 		// vTitle
 		// vImage
 		// vUrl
+		// onHome
 		// vid
 
 		$this->vid->ViewValue = $this->vid->CurrentValue;
@@ -566,6 +575,14 @@ class cvideos_library extends cTable {
 		// vUrl
 		$this->vUrl->ViewValue = $this->vUrl->CurrentValue;
 		$this->vUrl->ViewCustomAttributes = "";
+
+		// onHome
+		if (strval($this->onHome->CurrentValue) <> "") {
+			$this->onHome->ViewValue = $this->onHome->OptionCaption($this->onHome->CurrentValue);
+		} else {
+			$this->onHome->ViewValue = NULL;
+		}
+		$this->onHome->ViewCustomAttributes = "";
 
 		// vid
 		$this->vid->LinkCustomAttributes = "";
@@ -603,6 +620,11 @@ class cvideos_library extends cTable {
 		$this->vUrl->LinkCustomAttributes = "";
 		$this->vUrl->HrefValue = "";
 		$this->vUrl->TooltipValue = "";
+
+		// onHome
+		$this->onHome->LinkCustomAttributes = "";
+		$this->onHome->HrefValue = "";
+		$this->onHome->TooltipValue = "";
 
 		// Call Row Rendered event
 		$this->Row_Rendered();
@@ -645,6 +667,10 @@ class cvideos_library extends cTable {
 		$this->vUrl->EditValue = $this->vUrl->CurrentValue;
 		$this->vUrl->PlaceHolder = ew_RemoveHtml($this->vUrl->FldCaption());
 
+		// onHome
+		$this->onHome->EditCustomAttributes = "";
+		$this->onHome->EditValue = $this->onHome->Options(FALSE);
+
 		// Call Row Rendered event
 		$this->Row_Rendered();
 	}
@@ -676,10 +702,12 @@ class cvideos_library extends cTable {
 					if ($this->vTitle->Exportable) $Doc->ExportCaption($this->vTitle);
 					if ($this->vImage->Exportable) $Doc->ExportCaption($this->vImage);
 					if ($this->vUrl->Exportable) $Doc->ExportCaption($this->vUrl);
+					if ($this->onHome->Exportable) $Doc->ExportCaption($this->onHome);
 				} else {
 					if ($this->vid->Exportable) $Doc->ExportCaption($this->vid);
 					if ($this->vTitle->Exportable) $Doc->ExportCaption($this->vTitle);
 					if ($this->vImage->Exportable) $Doc->ExportCaption($this->vImage);
+					if ($this->onHome->Exportable) $Doc->ExportCaption($this->onHome);
 				}
 				$Doc->EndExportRow();
 			}
@@ -715,10 +743,12 @@ class cvideos_library extends cTable {
 						if ($this->vTitle->Exportable) $Doc->ExportField($this->vTitle);
 						if ($this->vImage->Exportable) $Doc->ExportField($this->vImage);
 						if ($this->vUrl->Exportable) $Doc->ExportField($this->vUrl);
+						if ($this->onHome->Exportable) $Doc->ExportField($this->onHome);
 					} else {
 						if ($this->vid->Exportable) $Doc->ExportField($this->vid);
 						if ($this->vTitle->Exportable) $Doc->ExportField($this->vTitle);
 						if ($this->vImage->Exportable) $Doc->ExportField($this->vImage);
+						if ($this->onHome->Exportable) $Doc->ExportField($this->onHome);
 					}
 					$Doc->EndExportRow();
 				}
