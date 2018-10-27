@@ -4,14 +4,25 @@ include_once 'config.php';
 $sql = "SELECT * FROM `about` ORDER BY `id` DESC";
 $result = $conn->query($sql);
 if($row = $result->fetch_assoc())
-$title ="شركة نهر الخير ";
+$title ="شركة نهر الخير للتنمية  ";
 $desc = $row['brief'];
 $key_w= $row['key_wrds'];
 include_once('header.php');
 ?>
 <!DOCTYPE html>
 <html>
+<head>
+    <script>
+	function activeli(){
 
+		
+	lis = document.getElementById("slidiv");
+	lis.getElementsByClassName("carousel-item")[0].className = "carousel-item active";
+	}
+	window.onload = activeli;
+    </script>
+    
+</head>
 <body>
        
     <!-- ====== Slide ======== -->
@@ -28,8 +39,10 @@ include_once('header.php');
                     }
                     ?>
                     </ol>
-                    <div class="carousel-inner">
+                    <div class="carousel-inner" id="slidiv">
                     <?php
+                    $slide_sql = "SELECT * FROM `slide` ORDER BY `id` DESC LIMIT 0,4";
+            $slide_result = $conn->query($slide_sql);
                     while($slide_row = $slide_result->fetch_assoc()){
                     echo '
                     <div class="carousel-item ">
@@ -125,9 +138,10 @@ include_once('header.php');
                 <div class="row">
                 <div class="col-8">
                     <h5>'.$project_row['offers_title'].'</h5>
+                    <b>'.$project_row['project'].'</b>
                     <p class="text-justify"> 
                     '.$project_row['offers_brief'].'
-                        <a href="offer.php?p=projects&id='.$project_row['íd'].'" class="btn btn-warning btn-sm">التفاصيل</a>
+                        <a href="offer.php?p=projects&id='.$project_row['id'].'" class="btn btn-warning btn-sm">التفاصيل</a>
                     </p>  
                 </div>
                 <div class="col-4">
@@ -146,7 +160,12 @@ include_once('header.php');
 
     <!-- ====== News ======== --> 
     <div class="container my-3">
-            <div class="row my-5">
+         <?php
+                $news_sql = "SELECT * FROM `news` ORDER BY `id` DESC";
+                $news_result = $conn->query($news_sql);
+                if($news_row = $news_result->fetch_assoc()){
+                    echo '
+                    <div class="row my-5">
                     <div class="col-md-4 bt-order"></div>
                     <div class="col-md-4">
                             <div class="section-head">
@@ -156,9 +175,9 @@ include_once('header.php');
                     <div class="col-md-4 bt-order"></div>
                 </div>
             <div class="row">
-                <?php
-                $news_sql = "SELECT * FROM `news` ORDER BY `id` DESC";
-                $news_result = $conn->query($news_sql);
+                    ';
+                }
+               
                 while($news_row = $news_result->fetch_assoc()){
                     echo'
                     <div class="col-md-4">

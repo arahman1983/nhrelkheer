@@ -410,6 +410,12 @@ color: #5bbf21 !important;
 
 }
 
+.carousel-item{
+    height:450px;
+    overflow:hidden;
+        
+    }
+
 @media screen and (max-width: 560px){
     .vedioplayer{
         width: 100%;

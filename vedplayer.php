@@ -19,26 +19,32 @@ include_once('header.php');
 </head>
 <body>
 
+    <div id="vplayer" class="my-3"></div>
 
-    <div id="vplayer"></div>
+
 
 
 
 <?php
     include_once('footer.php');
 ?>
+
+
+
     <script type="text/babel">
-let vedLibrary = [
+
     <?PHP
-    $ved_sql = "SELECT * FROM `videos_library` ORDER BY `id` DESC";
+    $ved_sql = "SELECT * FROM `videos_library` ORDER BY `vid` ASC";
     $ved_res = $conn->query($ved_sql);
+    echo'let vedLibrary = [';
     while($ved_row = $ved_res->fetch_assoc()){
         echo'
-        {vid: '.$ved_row['vid'].', vUrl:"'.$ved_row['vUrl'].'", vTitle:"'.$ved_row['vTitle'].'", vImage:"'.$ved_row['vImage'].'"},
+        {vid: '.$ved_row['vid'].', vUrl:"'.$ved_row['vUrl'].'", vTitle:"'.$ved_row['vTitle'].'", vImage:"uploads/'.$ved_row['vImage'].'"},
         ';
     }
+    echo'];';
     ?>
-    ];
+
 
 class VPApp extends React.Component{
     state = {
@@ -48,17 +54,17 @@ class VPApp extends React.Component{
         vImage : vedLibrary[0].Image
     }
     changeVideo = (optionId) => {
-      const arrayN = optionId -1;
     this.setState(()=>{
         return(
             this.state = {
-            vid : vedLibrary[arrayN].vid,
-            vTitle : vedLibrary[arrayN].vTitle,
-            vUrl : vedLibrary[arrayN].vUrl,
-            vImage : vedLibrary[arrayN].Image 
+            vid : vedLibrary[optionId].vid,
+            vTitle : vedLibrary[optionId].vTitle,
+            vUrl : vedLibrary[optionId].vUrl,
+            vImage : vedLibrary[optionId].Image 
             }
         )
-    })    
+    })
+      
     }
     render(){
         return(
@@ -96,14 +102,15 @@ const Valbums = (props) =>(
         <div className="container">
                 <div className="row">
         {
-            vedLibrary.map((vedioItem, index) => {
+            vedLibrary.map((anObjectMapped, index) => {
             return (
-            <a key={vedioItem.vid}
-             onClick ={(e) => {props.onChangeVideo(vedioItem.vid)}}
-              className="col-md-3 col-sm-6 my-3" id="vedsrc">
-                <div className="card text-center">
-                        <img src={vedioItem.vImage} alt={vedioItem.vImage} />
-                    <h5>{vedioItem.vTitle}</h5>
+            <a key={anObjectMapped.vid}
+            id="vedsrc"
+             onClick ={(e) => {props.onChangeVideo(index)}}
+              className="col-md-3 col-sm-6 my-3">
+                <div key={anObjectMapped.vTitle} className="card text-center">
+                        <img src={anObjectMapped.vImage} alt={anObjectMapped.vImage} />
+                    <h5>{anObjectMapped.vTitle}</h5>
                 </div>
             </a>
             );
